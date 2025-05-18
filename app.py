@@ -24,8 +24,8 @@ def generate_will():
     prompt = f"""
     Du bist ein erfahrener juristischer Berater. Erstelle ein einfaches, deutschsprachiges Testament für:
     Name: {name}, Alter: {age}
-    Was möchten Sie hinterlassen: {assets_text}
-    Empfänger: {people_text}
+    Digitale Güter: {assets_text}
+    Begünstigte: {people_text}
     """
 
     try:
