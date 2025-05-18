@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify, send_file, render_template
 from openai import OpenAI
 import os
 import tempfile
@@ -6,6 +6,10 @@ from fpdf import FPDF
 
 app = Flask(__name__)
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+@app.route("/", methods=["GET"])
+def index():
+    return render_template("index.html")
 
 @app.route("/generate_will", methods=["POST"])
 def generate_will():
@@ -28,15 +32,13 @@ def generate_will():
 
     try:
         response = client.chat.completions.create(
-            model"gpt-3.5-turbo",
-,
+            model="gpt-4",
             messages=[
                 {"role": "user", "content": prompt}
             ]
         )
         will_text = response.choices[0].message.content
 
-        # PDF erstellen
         pdf = FPDF()
         pdf.add_page()
         pdf.set_font("Arial", size=12)
@@ -51,9 +53,5 @@ def generate_will():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route("/")
-def index():
-    return "✅ Echo Vault Server läuft."
-
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
