@@ -1,10 +1,9 @@
-<!-- templates/index.html -->
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Echo Vault – Testament Generator</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Echo Vault – Digitales Testament</title>
   <style>
     body {
       background-color: #121212;
@@ -17,7 +16,7 @@
     input, textarea, button {
       width: 100%;
       padding: 0.8rem;
-      margin: 0.5rem 0;
+      margin: 0.5rem 0 1rem 0;
       border: none;
       border-radius: 4px;
       font-size: 1rem;
@@ -35,32 +34,39 @@
     button:hover {
       background-color: #00a466;
     }
+    p.hint {
+      font-size: 0.9rem;
+      color: #888;
+      margin-top: 0.5rem;
+    }
   </style>
 </head>
 <body>
-  <h1>Echo Vault</h1>
- <h1>Echo Vault</h1>
-<p>
-  Mit Echo Vault erstellen Sie in wenigen Minuten ein digitales Testament.  
-  Die KI unterstützt Sie dabei, Ihre Wünsche klar, sicher und rechtlich formuliert festzuhalten –  
-  für den Fall der Fälle. Ihre Daten werden vertraulich behandelt.  
-</p>
 
+  <h1>Echo Vault</h1>
+  <p>
+    Planen Sie heute, was anderen morgen Kraft gibt.<br>
+    Echo Vault hilft Ihnen, persönliche, digitale Erinnerungen, Dokumente und Botschaften  
+    rechtzeitig zu hinterlassen – verschlüsselt, individuell und würdevoll.
+  </p>
 
   <form id="vaultForm">
-    <label>Vollständiger Name:</label>
-    <input type="text" name="name" required>
+    <label>Ihr vollständiger Name:</label>
+    <input type="text" name="name" required />
 
-    <label>Alter:</label>
-    <input type="number" name="age" required>
+    <label>Ihr Alter:</label>
+    <input type="number" name="age" required />
 
-    <label>Digitale Güter (Komma getrennt):</label>
-    <input type="text" name="assets" required>
+    <label>Was möchten Sie hinterlassen?</label>
+    <input type="text" name="assets" required placeholder="z. B. persönliche Konten, digitale Briefe, Online-Zugänge" />
 
-    <label>Empfänger:innen der digitalen Güter:</label>
+    <label>Empfänger:</label>
+    <textarea name="beneficiaries" required placeholder="z. B. Uwe Schulz:Bruder, Tom Reimann:Freund"></textarea>
 
-
-    <textarea name="beneficiaries" required></textarea>
+    <p class="hint">
+      Sie können mehrere Empfänger mit Komma trennen.  
+      Beispiel: Maria Mustermann:Mutter, Alex Beispiel:Partner
+    </p>
 
     <button type="submit">🧾 Testament generieren</button>
   </form>
@@ -69,7 +75,7 @@
     document.getElementById('vaultForm').addEventListener('submit', async function(e) {
       e.preventDefault();
 
-      const name = this.name.value;
+      const name = this.name.value.trim();
       const age = parseInt(this.age.value);
       const assets = this.assets.value.split(',').map(item => item.trim());
       const beneficiaries = {};
@@ -96,5 +102,6 @@
       }
     });
   </script>
+
 </body>
 </html>
