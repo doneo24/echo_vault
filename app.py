@@ -37,5 +37,4 @@ def generate_will():
         )
         will_text = response.choices[0].message.content
 
-        # PDF erstellen
-        pdf
+        "# PDF erstellen  pdf"
