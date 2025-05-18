@@ -23,6 +23,10 @@ def is_access_granted():
 @app.route("/")
 def landing():
     return render_template("index.html")
+    
+@app.route("/")
+def home():
+    return render_template("echo_vault_final_template.html")
 
 @app.route("/status")
 def status():
