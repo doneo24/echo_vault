@@ -8,9 +8,9 @@ import tempfile
 app = Flask(__name__)
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-@app.route("/")
+@app.route("/avatar")
 def home():
-    return render_template("index.html")
+    return render_template("avatar.html")
 
 @app.route("/generate_vault", methods=["POST"])
 def generate_vault():
