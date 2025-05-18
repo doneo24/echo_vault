@@ -10,12 +10,12 @@
       color: #f1f1f1;
       font-family: Arial, sans-serif;
       padding: 2rem;
-      max-width: 600px;
+      max-width: 700px;
       margin: auto;
     }
     h1, h2 {
       color: #00c37a;
-      margin-top: 2rem;
+      margin-top: 2.5rem;
     }
     input, textarea, button {
       width: 100%;
@@ -53,8 +53,11 @@
       color: #00c37a;
       text-decoration: none;
     }
-    a:hover {
-      text-decoration: underline;
+    pre {
+      background: #222;
+      padding: 1rem;
+      border-radius: 6px;
+      white-space: pre-wrap;
     }
   </style>
 </head>
@@ -63,11 +66,11 @@
   <h1>Echo Vault</h1>
   <p>
     Planen Sie heute, was anderen morgen Kraft gibt.<br>
-    Echo Vault hilft Ihnen, persönliche digitale Erinnerungen, Dokumente und Botschaften  
-    rechtzeitig zu hinterlassen – verschlüsselt, individuell und würdevoll.
+    Echo Vault hilft Ihnen, digitale Erinnerungen, Botschaften und Zugänge
+    geordnet und würdevoll zu hinterlassen – verschlüsselt, persönlich, einfach.
   </p>
 
-  <!-- 🧾 Formular: Testament erstellen -->
+  <!-- 1. Testament erstellen -->
   <h2>🧾 Testament erstellen</h2>
   <form id="vaultForm">
     <label>Ihr vollständiger Name:</label>
@@ -77,35 +80,50 @@
     <input type="number" name="age" required />
 
     <label>Was möchten Sie hinterlassen?</label>
-    <input type="text" name="assets" required placeholder="z. B. persönliche Konten, digitale Briefe, Online-Zugänge" />
+    <input type="text" name="assets" required placeholder="z. B. persönliche Konten, digitale Briefe" />
 
     <label>Empfänger:</label>
     <textarea name="beneficiaries" required placeholder="z. B. Uwe Schulz:Bruder, Tom Reimann:Freund"></textarea>
-
-    <p class="hint">
-      Sie können mehrere Empfänger mit Komma trennen.
-    </p>
+    <p class="hint">Mehrere Einträge mit Komma trennen.</p>
 
     <button type="submit">📄 Testament generieren</button>
   </form>
 
-  <hr />
-
-  <!-- 🖋️ Formular: Letzte Nachricht -->
+  <!-- 2. Letzte Nachricht -->
   <h2>🖋️ Letzte Nachricht</h2>
-  <p>
-    Optional: Hinterlassen Sie eine persönliche Abschiedsnachricht.<br>
-    Echo Vault verwandelt Ihre Worte in einen stilvollen Abschiedsbrief – automatisch als PDF.
-  </p>
-
   <form id="messageForm">
     <label>Ihr Name:</label>
     <input type="text" name="name" required />
 
     <label>Ihre Nachricht:</label>
-    <textarea name="message" rows="5" required placeholder="Was möchten Sie einer geliebten Person sagen?"></textarea>
+    <textarea name="message" rows="5" required placeholder="Was möchten Sie einer geliebten Person hinterlassen?"></textarea>
 
-    <button type="submit">📝 Letzte Nachricht generieren</button>
+    <button type="submit">📝 Abschiedsbrief generieren</button>
+  </form>
+
+  <!-- 3. KI-Avatar -->
+  <h2>🤖 KI-Avatar (Test)</h2>
+  <form id="avatarForm">
+    <label>Persönlichkeitsbeschreibung:</label>
+    <textarea name="identity" rows="3" required placeholder="z. B. ruhig, direkt, witzig, nachdenklich..."></textarea>
+
+    <label>Frage an die Person:</label>
+    <input type="text" name="message" required />
+
+    <button type="submit">💬 Antwort anzeigen</button>
+  </form>
+  <pre id="avatarReply"></pre>
+
+  <!-- 4. Vault-Übergabe -->
+  <h2>🔐 Digitale Übergabe (Vault)</h2>
+  <form id="vaultNoteForm">
+    <label>Ihr Name:</label>
+    <input type="text" name="name" required />
+
+    <label>Was soll vertraulich übergeben werden?</label>
+    <textarea name="content" rows="5" required placeholder="z. B. Passwortliste, Zugang zu Servern, Konten usw."></textarea>
+
+    <button type="submit">📂 Übergabedokument generieren</button>
   </form>
 
   <hr />
@@ -113,9 +131,9 @@
     <a href="#">⬆️ Zurück zum Seitenanfang</a>
   </p>
 
-  <!-- JavaScript -->
+  <!-- JS -->
   <script>
-    // Testament
+    // 1. Testament
     document.getElementById('vaultForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const name = this.name.value.trim();
@@ -141,11 +159,11 @@
         link.download = "EchoVault_Testament.pdf";
         link.click();
       } else {
-        alert("Fehler beim Generieren des Testaments: " + response.statusText);
+        alert("Fehler beim Testament: " + response.statusText);
       }
     });
 
-    // Letzte Nachricht
+    // 2. Letzte Nachricht
     document.getElementById('messageForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const name = this.name.value.trim();
@@ -165,10 +183,53 @@
         link.download = "Letzte_Nachricht_EchoVault.pdf";
         link.click();
       } else {
-        alert("Fehler beim Erstellen der Nachricht: " + response.statusText);
+        alert("Fehler bei der Nachricht: " + response.statusText);
+      }
+    });
+
+    // 3. KI-Avatar
+    document.getElementById('avatarForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const identity = this.identity.value.trim();
+      const message = this.message.value.trim();
+
+      const response = await fetch("/avatar_chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ identity, message })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        document.getElementById('avatarReply').textContent = data.reply;
+      } else {
+        alert("Fehler bei Avatar-Antwort: " + response.statusText);
+      }
+    });
+
+    // 4. Vault-Modul
+    document.getElementById('vaultNoteForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const name = this.name.value.trim();
+      const content = this.content.value.trim();
+
+      const response = await fetch("/vault", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, content })
+      });
+
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = "Vault_Übergabe_EchoVault.pdf";
+        link.click();
+      } else {
+        alert("Fehler beim Vault: " + response.statusText);
       }
     });
   </script>
-
 </body>
 </html>
