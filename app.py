@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Echo Vault – Digitales Vermächtnis</title>
+  <title>Echo Vault - Digitales Vermächtnis</title>
   <style>
     body {
       background-color: #121212;
