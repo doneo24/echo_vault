@@ -6,6 +6,7 @@ import os
 import tempfile
 
 app = Flask(__name__)
+app.secret_key = "doneo_@secure_3829kdhsA9nW2L"  # <- dein generierter Key
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 @app.route("/avatar")
