@@ -53,5 +53,42 @@ def generate_will():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route("/last_message", methods=["POST"])
+def last_message():
+    data = request.json
+    name = data.get("name")
+    message = data.get("message")
+
+    prompt = f"""
+    Schreibe einen würdevollen, emotional passenden Abschiedsbrief auf Basis der folgenden Nachricht der Person {name}.
+    Verwandle sie in einen finalen Brief, in freundlicher und respektvoller Tonalität – für die Hinterbliebenen:
+
+    Nachricht:
+    {message}
+    """
+
+    try:
+        response = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": prompt}]
+        )
+        final_letter = response.choices[0].message.content
+
+        # PDF generieren
+        pdf = FPDF()
+        pdf.add_page()
+        pdf.set_font("Arial", size=12)
+        for line in final_letter.split('\n'):
+            pdf.multi_cell(0, 10, line)
+
+        tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
+        pdf.output(tmp.name)
+
+        return send_file(tmp.name, as_attachment=True, download_name="Letzte_Nachricht_EchoVault.pdf")
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
