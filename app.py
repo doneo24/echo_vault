@@ -15,7 +15,7 @@ def index():
 def generate_will():
     data = request.json
     name = data.get("name")
-    age = data.get("age")
+   
     assets = data.get("assets", [])
     beneficiaries = data.get("beneficiaries", {})
 
@@ -23,7 +23,7 @@ def generate_will():
     people_text = ", ".join([f"{k} ({v})" for k, v in beneficiaries.items()])
     prompt = f"""
     Du bist ein erfahrener juristischer Berater. Erstelle ein einfaches, deutschsprachiges Testament für:
-    Name: {name}, Alter: {age}
+    Name: {name},
     Digitale Güter: {assets_text}
     Begünstigte: {people_text}
     """
