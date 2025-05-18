@@ -4,6 +4,7 @@ from openai import OpenAI
 from fpdf import FPDF
 import os
 import tempfile
+import stripe
 
 app = Flask(__name__)
 app.secret_key = "doneo_@secure_3829kdhsA9nW2L"  # <- dein generierter Key
@@ -20,8 +21,37 @@ def home():
 
 @app.route("/generate_vault", methods=["POST"])
 def generate_vault():
-        if not session.get("free_unlocked"):
+       if not (
+    session.get("free_unlocked") or
+    session.get("plus_unlocked") or
+    session.get("pro_unlocked")
+):
+    return "❌ Zugriff verweigert – bitte zuerst Zugang aktivieren", 403
+
         return "❌ Zugriff verweigert – bitte zuerst Zugang aktivieren", 403
+@app.route("/success")
+def stripe_success():
+    session_id = request.args.get("session_id")
+    if not session_id:
+        return "Fehler: Keine Session-ID", 400
+
+    try:
+        session_stripe = stripe.checkout.Session.retrieve(session_id)
+        customer_email = session_stripe["customer_details"]["email"]
+        line_items = stripe.checkout.Session.list_line_items(session_id)
+
+        for item in line_items["data"]:
+            price_id = item["price"]["id"]
+            if price_id == "price_1RPylqQjaqheqwMhHEWyGqDP":  # PRO
+                session["pro_unlocked"] = True
+            elif price_id == "price_1RPymFQjaqheqwMhhN76SYLw":  # PLUS
+                session["plus_unlocked"] = True
+            elif price_id == "price_1RPyw7QjaqheqwMhA6Mfg6OH":  # FREE
+                session["free_unlocked"] = True
+
+        return render_template("success.html")
+    except Exception as e:
+        return f"Fehler: {str(e)}", 500
 
     name = request.form.get("name")
     assets = request.form.get("assets")
