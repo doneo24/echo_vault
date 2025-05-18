@@ -1,110 +1,143 @@
 
-from flask import Flask, render_template, request, send_file, jsonify, redirect, session
+import os
+import stripe
+import datetime
+from flask import Flask, render_template, request, send_file, session, redirect, jsonify
 from openai import OpenAI
 from fpdf import FPDF
-import os
 import tempfile
-import stripe
 
+# Initialisierung
 app = Flask(__name__)
-app.secret_key = "doneo_@secure_3829kdhsA9nW2L"  # <- dein generierter Key
+app.secret_key = "doneo_@secure_3829kdhsA9nW2L"
+stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-@app.route("/avatar")
+# Admin- und Nutzungsfunktionen
+def is_access_granted():
+    return any([
+        session.get("free_unlocked"),
+        session.get("plus_unlocked"),
+        session.get("pro_unlocked")
+    ])
+
+@app.route("/status")
+def status():
+    return {
+        "free": session.get("free_unlocked", False),
+        "plus": session.get("plus_unlocked", False),
+        "pro": session.get("pro_unlocked", False),
+        "downloads_left": session.get("downloads_left", "∞"),
+        "last_access": session.get("last_access", "nie"),
+    }
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return "✅ Du wurdest abgemeldet. Deine Sitzung ist beendet."
+
+@app.before_request
+def track_pdf_usage():
+    if request.path == "/generate_vault" and request.method == "POST":
+        if session.get("free_unlocked") and not session.get("pro_unlocked") and not session.get("plus_unlocked"):
+            if session.get("downloads_left") is None:
+                session["downloads_left"] = 1
+            if session["downloads_left"] <= 0:
+                return "❌ Du hast dein Free-Limit erreicht. Bitte upgraden.", 403
+            session["downloads_left"] -= 1
+            session["last_access"] = str(datetime.datetime.now())
+
+# Tarifauswahl
+@app.route("/select")
+def select_plan():
+    return render_template("select_plan.html")
+
 @app.route("/unlock_free", methods=["POST"])
 def unlock_free():
     session["free_unlocked"] = True
-    return redirect("/formular")  # Passe ggf. an deine Eingabe-Seite an
+    return redirect("/formular")
 
-def home():
-    return render_template("avatar.html")
+# Stripe Checkout
+@app.route("/checkout/<plan>")
+def checkout(plan):
+    prices = {
+        "pro": "price_1RPylqQjaqheqwMhHEWyGqDP",
+        "plus": "price_1RPymFQjaqheqwMhhN76SYLw",
+        "free": "price_1RPyw7QjaqheqwMhA6Mfg6OH"
+    }
 
-@app.route("/generate_vault", methods=["POST"])
-def generate_vault():
-       if not (
-    session.get("free_unlocked") or
-    session.get("plus_unlocked") or
-    session.get("pro_unlocked")
-):
-    return "❌ Zugriff verweigert – bitte zuerst Zugang aktivieren", 403
-
-        return "❌ Zugriff verweigert – bitte zuerst Zugang aktivieren", 403
-@app.route("/success")
-def stripe_success():
-    session_id = request.args.get("session_id")
-    if not session_id:
-        return "Fehler: Keine Session-ID", 400
+    if plan not in prices:
+        return "Ungültiger Tarif", 400
 
     try:
-        session_stripe = stripe.checkout.Session.retrieve(session_id)
-        customer_email = session_stripe["customer_details"]["email"]
-        line_items = stripe.checkout.Session.list_line_items(session_id)
+        session_data = stripe.checkout.Session.create(
+            payment_method_types=["card"],
+            line_items=[{"price": prices[plan], "quantity": 1}],
+            mode="payment",
+            success_url="https://echo-vault.onrender.com/success?session_id={CHECKOUT_SESSION_ID}",
+            cancel_url="https://echo-vault.onrender.com/cancel"
+        )
+        return redirect(session_data.url, code=303)
+    except Exception as e:
+        return jsonify(error=str(e)), 500
 
-        for item in line_items["data"]:
-            price_id = item["price"]["id"]
-            if price_id == "price_1RPylqQjaqheqwMhHEWyGqDP":  # PRO
-                session["pro_unlocked"] = True
-            elif price_id == "price_1RPymFQjaqheqwMhhN76SYLw":  # PLUS
-                session["plus_unlocked"] = True
-            elif price_id == "price_1RPyw7QjaqheqwMhA6Mfg6OH":  # FREE
-                session["free_unlocked"] = True
-
+@app.route("/success")
+def success():
+    session_id = request.args.get("session_id")
+    if not session_id:
+        return "Keine Session-ID", 400
+    try:
+        stripe_session = stripe.checkout.Session.retrieve(session_id)
+        price_id = stripe_session["display_items"][0]["price"]["id"]
+        if price_id == "price_1RPylqQjaqheqwMhHEWyGqDP":
+            session["pro_unlocked"] = True
+        elif price_id == "price_1RPymFQjaqheqwMhhN76SYLw":
+            session["plus_unlocked"] = True
+        elif price_id == "price_1RPyw7QjaqheqwMhA6Mfg6OH":
+            session["free_unlocked"] = True
         return render_template("success.html")
     except Exception as e:
-        return f"Fehler: {str(e)}", 500
+        return jsonify(error=str(e)), 500
+
+@app.route("/cancel")
+def cancel():
+    return "❌ Zahlung abgebrochen."
+
+# Formularanzeige
+@app.route("/formular")
+def formular():
+    return render_template("index.html")
+
+# PDF-Generierung
+@app.route("/generate_vault", methods=["POST"])
+def generate_vault():
+    if not is_access_granted():
+        return "❌ Zugriff verweigert – bitte zuerst Zugang aktivieren", 403
 
     name = request.form.get("name")
     assets = request.form.get("assets")
-    beneficiaries_raw = request.form.get("beneficiaries")
+    beneficiaries = request.form.get("beneficiaries")
     message = request.form.get("message")
     identity = request.form.get("identity")
 
-    beneficiaries = {}
-    for pair in beneficiaries_raw.split(","):
-        if ":" in pair:
-            k, v = pair.split(":", 1)
-            beneficiaries[k.strip()] = v.strip()
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=12)
+    pdf.cell(200, 10, txt="Echo Vault – Digitales Vermächtnis", ln=True, align="C")
+    pdf.ln(10)
+    pdf.multi_cell(0, 10, f"Name: {name}")
+    pdf.multi_cell(0, 10, f"Hinterlassene Inhalte:
+{assets}")
+    pdf.multi_cell(0, 10, f"Empfänger:
+{beneficiaries}")
+    pdf.multi_cell(0, 10, f"Letzte Nachricht:
+{message}")
+    pdf.multi_cell(0, 10, f"Persönlichkeitsbeschreibung:
+{identity}")
 
-    people_text = ", ".join([f"{k} ({v})" for k, v in beneficiaries.items()])
-
-    will_prompt = f"Du bist ein erfahrener juristischer Berater. Erstelle ein einfaches, deutschsprachiges Testament für: Name: {name}, Digitale Güter: {assets}, Begünstigte: {people_text}"
-    letter_prompt = f"Schreibe einen würdevollen, persönlichen Abschiedsbrief von {name} an seine Hinterbliebenen: {message}"
-    avatar_notice = f"Diese Person hat folgende Persönlichkeitsbeschreibung hinterlassen: {identity}. Mithilfe dieser Angaben kann Echo Vault eine KI-gestützte Antwort im Stil dieser Person simulieren."
-
-    try:
-        will_response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": will_prompt}]
-        )
-        letter_response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": letter_prompt}]
-        )
-
-        will_text = will_response.choices[0].message.content.strip()
-        letter_text = letter_response.choices[0].message.content.strip()
-
-        pdf = FPDF()
-        pdf.add_page()
-        pdf.set_font("Arial", size=12)
-        pdf.multi_cell(0, 10, f"Digitales Testament für: {name}")
-        pdf.multi_cell(0, 10, will_text)
-
-        pdf.add_page()
-        pdf.multi_cell(0, 10, f"Letzte persönliche Nachricht von {name}")
-        pdf.multi_cell(0, 10, letter_text)
-
-        pdf.add_page()
-        pdf.multi_cell(0, 10, "Hinweis für Angehörige:")
-        pdf.multi_cell(0, 10, avatar_notice)
-
-        tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
-        pdf.output(tmp.name)
-
-        return send_file(tmp.name, as_attachment=True, download_name="EchoVault_Digitales_Vermächtnis.pdf")
-
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as temp:
+        pdf.output(temp.name)
+        return send_file(temp.name, as_attachment=True, download_name="EchoVault.pdf")
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+    app.run(debug=True)
