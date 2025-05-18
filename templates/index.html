@@ -3,236 +3,97 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Doneo Echo Vault</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Echo Vault – Digitales Vermächtnis</title>
   <style>
-    :root {
-      --primary: #1B2A41;
-      --accent: #00C37A;
-      --light-bg: #f4f9fc;
-      --text: #222;
-      --heading-font: 'Playfair Display', serif;
-      --body-font: 'Inter', sans-serif;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      font-family: var(--body-font);
-      background-color: var(--light-bg);
-      color: var(--text);
-      line-height: 1.6;
-      padding: 0;
-      margin: 0;
-    }
-
-    header {
-      background-color: var(--primary);
-      color: white;
-      padding: 1.5rem;
-      text-align: center;
-      position: relative;
-    }
-
-    header h1 {
-      font-family: var(--heading-font);
-      font-size: 2.2rem;
-    }
-
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem;
-      background-color: var(--primary);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 1.5rem;
-    }
-
-    .nav-links a {
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .burger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-    }
-
-    .burger div {
-      width: 25px;
-      height: 3px;
-      background: white;
-    }
-
-    .intro-section {
-      text-align: center;
-      padding: 2rem 1rem;
-      max-width: 900px;
+      background-color: #f4f9fc;
+      font-family: Arial, sans-serif;
+      color: #222;
+      padding: 2rem;
+      max-width: 700px;
       margin: auto;
     }
-
-    .intro-section h2 {
-      font-family: var(--heading-font);
-      color: var(--primary);
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-    }
-
-    .intro-section p {
-      font-size: 1.1rem;
+    h1 {
+      text-align: center;
+      color: #1B2A41;
       margin-bottom: 2rem;
     }
-
-    .cards-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      padding: 2rem;
-      max-width: 1200px;
-      margin: auto;
+    label {
+      display: block;
+      margin: 1rem 0 0.5rem;
     }
-
-    .card {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
-      padding: 1.5rem;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .card h3 {
-      color: var(--primary);
+    input, textarea, select {
+      width: 100%;
+      padding: 0.8rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
       margin-bottom: 1rem;
-      font-size: 1.2rem;
     }
-
-    .card p {
-      flex-grow: 1;
-      margin-bottom: 1.5rem;
-      font-size: 0.95rem;
-    }
-
-    .card button {
-      background-color: var(--accent);
+    button {
+      background-color: #00C37A;
       color: white;
       border: none;
-      padding: 0.6rem 1rem;
+      padding: 0.8rem 1.2rem;
       border-radius: 5px;
-      font-weight: bold;
+      font-size: 1rem;
       cursor: pointer;
     }
-
-    footer {
-      text-align: center;
-      font-size: 0.85rem;
-      padding: 2rem 1rem;
-      background-color: #e1ecf3;
-      color: #444;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-        flex-direction: column;
-        background: var(--primary);
-        position: absolute;
-        top: 60px;
-        right: 10px;
-        width: 200px;
-        padding: 1rem;
-      }
-
-      .nav-links.active {
-        display: flex;
-      }
-
-      .burger {
-        display: flex;
-      }
+    button:hover {
+      background-color: #00a466;
     }
   </style>
 </head>
 <body>
 
-<nav>
-  <h1>Echo Vault</h1>
-  <div class="nav-links" id="navLinks">
-    <a href="#">Start</a>
-    <a href="#">Was ist Echo?</a>
-    <a href="#">Beispiele</a>
-    <a href="#">Kontakt</a>
-  </div>
-  <div class="burger" onclick="toggleMenu()">
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
-</nav>
+<h1>Echo Vault – Deine Botschaft als Vermächtnis</h1>
 
-<section class="intro-section">
-  <h2>Der digitale Tresor für deine Stimme, deine Worte, deine Erinnerung.</h2>
-  <p>Echo Vault ist mehr als ein digitales Testament. Es ist ein Ort für emotionale Botschaften, persönliche Worte und Zeitkapseln – sicher, persönlich, mit KI unterstützt.</p>
-</section>
+<form id="vaultForm" enctype="multipart/form-data">
+  <label for="name">Vollständiger Name</label>
+  <input type="text" id="name" name="name" required>
 
-<section class="cards-container">
-  <div class="card">
-    <h3>Zukunftsbrief</h3>
-    <p>Eine Nachricht an dein zukünftiges Ich – in 5, 10 oder 20 Jahren.</p>
-    <button>Auswählen</button>
-  </div>
-  <div class="card">
-    <h3>Letzte Nachricht</h3>
-    <p>Hinterlasse deine Stimme und Worte für die Menschen, die dir wichtig sind.</p>
-    <button>Auswählen</button>
-  </div>
-  <div class="card">
-    <h3>Brief an dein Kind</h3>
-    <p>Für den Moment, den du nicht miterleben kannst – zur Geburt, zum 18. oder zur Hochzeit.</p>
-    <button>Auswählen</button>
-  </div>
-  <div class="card">
-    <h3>Dank & Versöhnung</h3>
-    <p>Was du nie gesagt hast – hier kannst du es loswerden. Persönlich und ewig bewahrt.</p>
-    <button>Auswählen</button>
-  </div>
-  <div class="card">
-    <h3>Echo Zeitkapsel</h3>
-    <p>Dokumente, Bilder, Audio – verschlüsselt gespeichert für die Zukunft.</p>
-    <button>Auswählen</button>
-  </div>
-  <div class="card">
-    <h3>Mentoring & Übergabe</h3>
-    <p>Werte, Erfahrungen, Lebenslektionen – für Nachfolger, Kinder oder Teams.</p>
-    <button>Auswählen</button>
-  </div>
-</section>
+  <label for="message">Deine Nachricht</label>
+  <textarea id="message" name="message" rows="5" required></textarea>
 
-<footer>
-  &copy; 2025 Doneo Echo Vault – Alle Rechte vorbehalten | <a href="#">Datenschutz</a> | <a href="#">Impressum</a>
-</footer>
+  <label for="open_date">Öffne erst am (optional)</label>
+  <input type="date" id="open_date" name="open_date">
+
+  <label for="identity">Persönlichkeitsbeschreibung (optional)</label>
+  <textarea id="identity" name="identity" placeholder="z. B. ruhig, liebevoll, zielstrebig…"></textarea>
+
+  <label for="voice">Wähle KI-Stimme</label>
+  <select name="voice" id="voice">
+    <option value="openai">Standard (kostenfrei)</option>
+    <option value="11labs">Realistisch (Premium)</option>
+  </select>
+
+  <label for="files">Dateien hochladen (optional)</label>
+  <input type="file" name="files" multiple>
+
+  <button type="submit">📄 Digitales Vermächtnis generieren</button>
+</form>
 
 <script>
-  function toggleMenu() {
-    const nav = document.getElementById("navLinks");
-    nav.classList.toggle("active");
-  }
+  document.getElementById("vaultForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+
+    const response = await fetch("/generate_vault", {
+      method: "POST",
+      body: formData
+    });
+
+    if (response.ok) {
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "EchoVault_Botschaft.pdf";
+      link.click();
+    } else {
+      alert("Fehler beim Erstellen des Dokuments.");
+    }
+  });
 </script>
 
 </body>
