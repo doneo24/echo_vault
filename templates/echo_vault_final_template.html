@@ -2,23 +2,22 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Echo Vault Formular</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Echo Vault – Dein Beitrag</title>
   <style>
     body {
-      background-color: #f5faff;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #222;
-      margin: 0;
+      background-color: #f7fbfe;
       padding: 2rem;
+      color: #222;
       max-width: 700px;
       margin: auto;
     }
     h2 {
       text-align: center;
       color: #00457c;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
     }
     label {
       display: block;
@@ -36,8 +35,8 @@
     button {
       background-color: #0077aa;
       color: white;
-      border: none;
       margin-top: 2rem;
+      border: none;
       font-weight: bold;
       cursor: pointer;
     }
@@ -48,26 +47,31 @@
 </head>
 <body>
 
-  {% if typ %}
-    <h2>Du verfasst: {{ typ | capitalize }}</h2>
-  {% else %}
-    <h2>Deine persönliche Botschaft</h2>
-  {% endif %}
+  {% set typ_text = {
+    "zukunftsbrief": "Nachricht an dein zukünftiges Ich",
+    "letzte_nachricht": "Letzte Nachricht",
+    "brief_kind": "Brief an dein Kind",
+    "dank": "Danksagung oder Versöhnung",
+    "zeitkapsel": "Echo Zeitkapsel",
+    "mentoring": "Mentoring oder Übergabe"
+  }.get(typ, "Deine persönliche Botschaft") %}
+
+  <h2>Du verfasst: {{ typ_text }}</h2>
 
   <form method="POST" action="/submit_form" enctype="multipart/form-data">
+    <input type="hidden" name="typ" value="{{ typ }}">
+
     <label for="name">Vollständiger Name</label>
     <input type="text" id="name" name="name" required>
 
     <label for="message">Nachricht oder Inhalt</label>
     <textarea id="message" name="message" rows="6" required></textarea>
 
-    <label for="identity">Deine Persönlichkeitsbeschreibung (optional)</label>
+    <label for="identity">Persönlichkeitsbeschreibung (optional)</label>
     <textarea id="identity" name="identity" rows="3" placeholder="z. B. ruhig, humorvoll, direkt"></textarea>
 
-    <label for="file">Optional: Dateien hochladen</label>
+    <label for="file">Dateien hochladen (optional)</label>
     <input type="file" id="file" name="file" multiple>
-
-    <input type="hidden" name="typ" value="{{ typ }}">
 
     <button type="submit">Jetzt generieren</button>
   </form>
