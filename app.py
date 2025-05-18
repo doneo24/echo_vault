@@ -122,6 +122,43 @@ def generate_vault():
     if not is_access_granted():
         return "❌ Zugriff verweigert – bitte zuerst Zugang aktivieren", 403
 
+from flask import request, send_file, redirect, url_for
+from werkzeug.utils import secure_filename
+from fpdf import FPDF
+import os
+import tempfile
+
+@app.route("/submit_form", methods=["POST"])
+def submit_form():
+    name = request.form.get("name", "Unbekannt")
+    message = request.form.get("message", "")
+    identity = request.form.get("identity", "")
+    typ = request.form.get("typ", "Echo Vault")
+    uploaded_files = request.files.getlist("file")
+
+    # Erstelle temporäres PDF
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=14)
+    pdf.multi_cell(0, 10, f"{typ}\n\nVon: {name}\n\nNachricht:\n{message}\n\nCharakterbeschreibung:\n{identity}")
+
+    # Speicherort für Dateien
+    temp_dir = tempfile.mkdtemp()
+    pdf_path = os.path.join(temp_dir, "EchoVault_Dokument.pdf")
+    pdf.output(pdf_path)
+
+    # Optional: Speichere hochgeladene Dateien
+    for file in uploaded_files:
+        if file and file.filename:
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(temp_dir, filename))
+
+    # OPTIONAL: KI-Stimme vorbereiten (Platzhalter)
+    # Hier könntest du später ElevenLabs oder andere APIs ansprechen
+    # Audio-Datei könnte ebenfalls im PDF referenziert oder verlinkt werden
+
+    return send_file(pdf_path, as_attachment=True, download_name="EchoVault_Dokument.pdf")
+
     name = request.form.get("name")
     assets = request.form.get("assets")
     beneficiaries = request.form.get("beneficiaries")
