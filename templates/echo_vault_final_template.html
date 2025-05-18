@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -7,9 +6,9 @@
   <title>Echo Vault – Deine persönliche Botschaft</title>
   <style>
     body {
-      background-color: #f1f8fc;
+      background-color: #E7F3F9;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #222;
+      color: #444;
       margin: 0;
       padding: 0;
     }
@@ -24,6 +23,7 @@
     header h1 {
       margin: 0;
       font-size: 2rem;
+      font-family: 'Playfair Display', serif;
     }
 
     main {
@@ -31,14 +31,15 @@
       margin: 2rem auto;
       padding: 2rem;
       background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.05);
     }
 
     h2 {
       text-align: center;
       font-size: 1.5rem;
-      color: #0a2c3d;
+      color: #00457c;
+      font-family: 'Playfair Display', serif;
     }
 
     form {
@@ -47,7 +48,7 @@
     }
 
     label {
-      margin: 0.8rem 0 0.2rem;
+      margin-top: 1rem;
       font-weight: bold;
     }
 
@@ -55,10 +56,13 @@
     input[type="date"],
     textarea,
     select {
-      padding: 0.7rem;
+      width: 100%;
+      padding: 0.75rem;
       font-size: 1rem;
       border: 1px solid #ccc;
       border-radius: 6px;
+      margin-top: 0.25rem;
+      font-family: 'Segoe UI', sans-serif;
     }
 
     textarea {
@@ -70,70 +74,29 @@
     }
 
     button {
-      margin-top: 1.5rem;
-      background-color: #0fa958;
+      margin-top: 2rem;
+      background-color: #00C37A;
       color: white;
       font-weight: bold;
-      padding: 0.8rem;
+      padding: 0.9rem;
       border: none;
       border-radius: 6px;
       font-size: 1rem;
       cursor: pointer;
+      font-family: 'Segoe UI', sans-serif;
     }
 
     button:hover {
-      background-color: #0d8d4c;
+      background-color: #00a86b;
     }
 
     footer {
       text-align: center;
-      margin: 3rem 0 1rem;
+      padding: 2rem 1rem;
       font-size: 0.9rem;
       color: #555;
     }
   </style>
-
-<style>
-  body {
-    background-color: #E7F3F9;
-    font-family: 'Segoe UI', sans-serif;
-    color: #444444;
-  }
-  h1, h2, h3 {
-    font-family: 'Playfair Display', serif;
-    color: #4182A4;
-  }
-  input[type="text"], textarea, select {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    margin-top: 0.25rem;
-    margin-bottom: 1rem;
-    font-family: 'Segoe UI', sans-serif;
-  }
-  button {
-    background-color: #00C37A;
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 6px;
-    font-size: 1rem;
-    cursor: pointer;
-    font-family: 'Segoe UI', sans-serif;
-  }
-  button:hover {
-    background-color: #00b06a;
-  }
-  .form-wrapper {
-    max-width: 600px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
-  }
-</style>
 </head>
 
 <body>
@@ -144,7 +107,7 @@
 
   <main>
     <h2>Du verfasst: Deine persönliche Botschaft</h2>
-    <form method="POST" enctype="multipart/form-data" action="/generate_vault">
+    <form method="POST" enctype="multipart/form-data" action="/submit_form">
       <label for="name">Vollständiger Name</label>
       <input type="text" id="name" name="name" required>
 
@@ -154,8 +117,8 @@
       <label for="unlock_date">Öffne erst am (optional)</label>
       <input type="date" id="unlock_date" name="unlock_date">
 
-      <label for="personality">Persönlichkeitsbeschreibung (optional)</label>
-      <textarea id="personality" name="personality" placeholder="z. B. ruhig, liebevoll, zielstrebig"></textarea>
+      <label for="identity">Persönlichkeitsbeschreibung (optional)</label>
+      <textarea id="identity" name="identity" placeholder="z. B. ruhig, liebevoll, zielstrebig"></textarea>
 
       <label for="voice">Wähle KI-Stimme</label>
       <select id="voice" name="voice">
@@ -164,7 +127,7 @@
       </select>
 
       <label for="file">Dateien hochladen (optional)</label>
-      <input type="file" id="file" name="file">
+      <input type="file" id="file" name="file" multiple>
 
       <button type="submit">Jetzt generieren</button>
     </form>
