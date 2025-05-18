@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Doneo Echo Vault – Deine Botschaft</title>
+  <title>Doneo Echo Vault – Dein digitales Vermächtnis</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -53,58 +53,41 @@
         display: flex;
       }
     }
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      padding: 2rem;
+    .cta {
+      background-color: #ffffff;
+      padding: 4rem 2rem;
       text-align: center;
     }
-    h2 {
+    .cta h2 {
+      font-size: 2.2rem;
       color: #007a5c;
-      font-size: 2rem;
-      margin-top: 2rem;
+      margin-bottom: 1rem;
     }
-    .intro {
+    .cta p {
       font-size: 1.1rem;
-      color: #444;
-      margin: 1rem 0 2rem;
+      max-width: 700px;
+      margin: auto;
       line-height: 1.6;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-    .card {
-      background: white;
-      border-radius: 10px;
-      padding: 1.5rem;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .card h3 {
-      color: #007a5c;
-      font-size: 1.2rem;
-      margin-bottom: 0.6rem;
-    }
-    .card p {
-      font-size: 0.95rem;
       color: #333;
     }
-    .card a {
-      margin-top: 1.2rem;
+    .cta a {
+      display: inline-block;
+      margin-top: 2rem;
       background-color: #007a5c;
       color: white;
-      text-decoration: none;
-      padding: 0.6rem;
-      border-radius: 5px;
       font-weight: bold;
+      padding: 0.8rem 1.6rem;
+      text-decoration: none;
+      border-radius: 5px;
     }
-    .card a:hover {
+    .cta a:hover {
       background-color: #005f47;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #555;
+      padding: 2rem 1rem;
     }
   </style>
 </head>
@@ -115,58 +98,23 @@
   <div class="burger" onclick="document.getElementById('nav').classList.toggle('open')">&#9776;</div>
 </header>
 <nav id="nav" class="menu">
-  <a href="#">Start</a>
-  <a href="#was-ist">Was ist Echo Vault?</a>
-  <a href="#optionen">Beispiele</a>
-  <a href="#kontakt">Kontakt</a>
+  <a href="/was-ist">Was ist Echo Vault?</a>
+  <a href="/beispiele">Beispiele</a>
+  <a href="/kontakt">Kontakt</a>
 </nav>
 
-<div class="container">
-  <h2 id="was-ist">Was ist Doneo Echo Vault?</h2>
-  <p class="intro">
-    Echo Vault ist mehr als ein digitales Testament. Es ist ein Ort für emotionale Botschaften, für persönliche Worte,
-    für Zeitkapseln – sicher, persönlich, mit KI unterstützt.<br><br>
-    Hier kannst du deine letzte Nachricht, deinen Dank, einen Zukunftsbrief oder sogar deine Stimme speichern.
-    Alles wird als PDF-Dokument mit optionaler Audiodatei (deiner echten oder KI-generierten Stimme) bereitgestellt – sicher und würdevoll.
-  </p>
+<section class="cta">
+  <h2>Dein digitales Vermächtnis beginnt jetzt</h2>
+  <p>Mit Doneo Echo Vault kannst du Botschaften, Erinnerungen und deine Stimme festhalten –
+  sicher, verschlüsselt und genau für den Moment, den du vielleicht nicht miterleben wirst.</p>
+  <a href="/formular">Jetzt persönliche Botschaft erstellen</a>
+</section>
 
-  <h2 id="optionen">Wähle deine Botschaft:</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>Zukunftsbrief</h3>
-      <p>Eine Nachricht an dein zukünftiges Ich – in 5, 10 oder 20 Jahren.</p>
-      <a href="/formular?typ=zukunftsbrief">Auswählen</a>
-    </div>
-    <div class="card">
-      <h3>Letzte Nachricht</h3>
-      <p>Hinterlasse deine Stimme und Worte für die Menschen, die dir wichtig sind.</p>
-      <a href="/formular?typ=letzte_nachricht">Auswählen</a>
-    </div>
-    <div class="card">
-      <h3>Brief an dein Kind</h3>
-      <p>Für den Moment, den du nicht miterleben kannst – zur Geburt, zum 18. oder zur Hochzeit.</p>
-      <a href="/formular?typ=brief_kind">Auswählen</a>
-    </div>
-    <div class="card">
-      <h3>Dank & Versöhnung</h3>
-      <p>Eine ehrliche Danksagung – an Menschen, die dein Leben geprägt haben.</p>
-      <a href="/formular?typ=dank">Auswählen</a>
-    </div>
-    <div class="card">
-      <h3>Echo Zeitkapsel</h3>
-      <p>Dokumente, Bilder, Audio – verschlüsselt gespeichert für die Zukunft.</p>
-      <a href="/formular?typ=zeitkapsel">Auswählen</a>
-    </div>
-    <div class="card">
-      <h3>Mentoring & Übergabe</h3>
-      <p>Werte, Erfahrungen, Lebenslektionen – für Nachfolger, Kinder oder Teams.</p>
-      <a href="/formular?typ=mentoring">Auswählen</a>
-    </div>
-  </div>
-</div>
+<footer>
+  <p>&copy; 2025 Doneo Echo Vault – Alle Rechte vorbehalten</p>
+</footer>
 
 <script>
-  // Burger-Toggle für mobile Navigation
   document.querySelector(".burger").addEventListener("click", function() {
     document.getElementById("nav").classList.toggle("open");
   });
