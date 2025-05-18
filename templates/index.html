@@ -5,66 +5,92 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Echo Vault - Digitales Vermächtnis</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Open+Sans&display=swap" rel="stylesheet">
   <style>
     body {
-      background-color: #121212;
-      color: #f1f1f1;
-      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #f5faff, #ffffff);
+      font-family: 'Open Sans', sans-serif;
+      color: #333;
       padding: 2rem;
       max-width: 700px;
       margin: auto;
       text-align: center;
     }
-    h1, h2 {
-      color: #00c37a;
-      margin-top: 2.5rem;
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      color: #0099cc;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
     }
-    input, textarea, button {
-      width: 100%;
-      padding: 0.8rem;
-      margin: 0.5rem 0 1rem 0;
-      border: none;
-      border-radius: 4px;
-      font-size: 1rem;
+    h2 {
+      color: #006680;
+      margin-top: 2rem;
+    }
+    form {
+      margin-top: 1rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: bold;
       text-align: left;
     }
-    input, textarea {
-      background: #222;
-      color: #fff;
+    input[type="text"],
+    textarea {
+      width: 100%;
+      max-width: 100%;
+      padding: 0.6rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background: #fff;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    input[name="name"] {
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    input[type="file"] {
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
     }
     button {
-      background-color: #00c37a;
-      color: black;
-      font-weight: bold;
+      background-color: #00b894;
+      color: #fff;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 6px;
       cursor: pointer;
+      margin-top: 1rem;
     }
     button:hover {
-      background-color: #00a466;
+      background-color: #00997a;
+    }
+    .info-box {
+      background-color: #e6f7ff;
+      color: #004d66;
+      padding: 1rem;
+      border-radius: 8px;
+      margin: 1.5rem 0;
+      font-size: 0.95rem;
     }
     p.hint {
-      font-size: 0.9rem;
-      color: #888;
+      font-size: 0.85rem;
+      color: #666;
       margin-top: -0.5rem;
       margin-bottom: 1rem;
     }
-    .info-box {
-      font-size: 0.95rem;
-      color: #999;
-      background: #1a1a1a;
-      padding: 1rem;
-      border-radius: 6px;
-      margin-bottom: 2rem;
-      text-align: center;
-    }
     footer {
       font-size: 0.8rem;
-      margin-top: 4rem;
-      color: #666;
+      margin-top: 3rem;
+      color: #999;
     }
     footer a {
-      color: #00c37a;
+      color: #00b894;
       text-decoration: none;
-      margin: 0 10px;
+      margin: 0 8px;
     }
   </style>
 </head>
@@ -72,31 +98,30 @@
 
   <h1>Echo Vault</h1>
   <p><strong>Planen Sie heute, was anderen morgen Kraft gibt.</strong></p>
-  <p>Echo Vault hilft Ihnen, digitale Erinnerungen, letzte Worte und persönliche Angaben<br>
+  <p>Echo Vault hilft Ihnen, digitale Erinnerungen, letzte Worte<br>
   geordnet und würdevoll zu hinterlassen – in einem einzigen Dokument.</p>
 
   <p class="info-box">
     📄 <strong>Hier kannst du dein eigenes digitales Vermächtnis als PDF erstellen.</strong><br>
-    Die Datei wird <strong>ausschließlich für dich</strong> generiert und <strong>nicht gespeichert</strong>.<br>
-    Du kannst sie anschließend <strong>selbst verwalten und an deine Angehörigen weitergeben</strong>.
-  </p>
+    Die Datei wird ausschließlich für dich generiert und nicht gespeichert.<br>
+    </p>
 
   <form id="combinedForm" enctype="multipart/form-data">
     <label>Ihr vollständiger Name:</label>
     <input type="text" name="name" required />
 
     <label>Was möchten Sie hinterlassen?</label>
-    <textarea name="assets" required placeholder="z. B. persönliche Konten, Briefe, Zugangsdaten etc."></textarea>
+    <textarea name="assets" required></textarea>
 
     <label>Empfänger:</label>
-    <textarea name="beneficiaries" required placeholder="z. B. Max Mustermann: Bruder, Lisa Beispiel: Partnerin"></textarea>
+    <textarea name="beneficiaries" required></textarea>
     <p class="hint">Mehrere Empfänger mit Komma trennen.</p>
 
     <label>Letzte persönliche Nachricht:</label>
-    <textarea name="message" rows="5" required placeholder="Was möchten Sie den Hinterbliebenen sagen?"></textarea>
+    <textarea name="message" rows="4" required></textarea>
 
-    <label>Ihre Persönlichkeitsbeschreibung (für den KI-Avatar):</label>
-    <textarea name="identity" rows="3" required placeholder="z. B. ruhig, direkt, humorvoll, lebensklug"></textarea>
+    <label>Ihre eigene Persönlichkeitsbeschreibung (für den KI-Avatar):</label>
+    <textarea name="identity" rows="3" required></textarea>
 
     <label>Dateien hinzufügen (optional):</label>
     <input type="file" name="files" multiple />
@@ -105,7 +130,7 @@
 
     <p class="hint">
       🔐 Deine Angaben bleiben nur bei dir – Echo Vault speichert keine Daten.<br>
-      💾 Das PDF wird direkt auf deinem Gerät erstellt, sicher und nur für dich.
+      💾 Das PDF wird direkt auf deinem Gerät erstellt.
     </p>
   </form>
 
