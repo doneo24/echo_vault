@@ -126,14 +126,10 @@ def generate_vault():
     pdf.cell(200, 10, txt="Echo Vault – Digitales Vermächtnis", ln=True, align="C")
     pdf.ln(10)
     pdf.multi_cell(0, 10, f"Name: {name}")
-    pdf.multi_cell(0, 10, f"Hinterlassene Inhalte:
-{assets}")
-    pdf.multi_cell(0, 10, f"Empfänger:
-{beneficiaries}")
-    pdf.multi_cell(0, 10, f"Letzte Nachricht:
-{message}")
-    pdf.multi_cell(0, 10, f"Persönlichkeitsbeschreibung:
-{identity}")
+    pdf.multi_cell(0, 10, f"Hinterlassene Inhalte:{assets}")
+    pdf.multi_cell(0, 10, f"Empfänger:{beneficiaries}")
+    pdf.multi_cell(0, 10, f"Letzte Nachricht:{message}")
+    pdf.multi_cell(0, 10, f"Persönlichkeitsbeschreibung:{identity}")
 
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as temp:
         pdf.output(temp.name)
