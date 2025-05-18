@@ -13,6 +13,30 @@ app.secret_key = "doneo_@secure_3829kdhsA9nW2L"
 stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
+
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+@app.route("/datenschutz")
+def datenschutz():
+    return render_template("datenschutz.html")
+
+@app.route("/impressum")
+def impressum():
+    return render_template("impressum.html")
+
+@app.route("/kontakt")
+def kontakt():
+    return render_template("kontakt.html")
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
 # Admin- und Nutzungsfunktionen
 def is_access_granted():
     return any([
