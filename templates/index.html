@@ -13,6 +13,7 @@
       padding: 2rem;
       max-width: 700px;
       margin: auto;
+      text-align: center;
     }
     h1, h2 {
       color: #00c37a;
@@ -25,6 +26,7 @@
       border: none;
       border-radius: 4px;
       font-size: 1rem;
+      text-align: left;
     }
     input, textarea {
       background: #222;
@@ -39,35 +41,47 @@
     button:hover {
       background-color: #00a466;
     }
-    p.hint {
+    p.hint, p.notice {
       font-size: 0.9rem;
       color: #888;
       margin-top: -0.5rem;
       margin-bottom: 1rem;
     }
-    hr {
-      margin: 3rem 0;
-      border: none;
-      border-top: 1px solid #333;
-    }
-    pre {
-      background: #222;
+    .info-box {
+      font-size: 0.9rem;
+      color: #999;
+      background: #1a1a1a;
       padding: 1rem;
       border-radius: 6px;
-      white-space: pre-wrap;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    footer {
+      font-size: 0.8rem;
+      margin-top: 4rem;
+      color: #666;
+    }
+    footer a {
+      color: #00c37a;
+      text-decoration: none;
+      margin: 0 10px;
     }
   </style>
 </head>
 <body>
 
   <h1>Echo Vault</h1>
-  <p>
-    Planen Sie heute, was anderen morgen Kraft gibt.<br>
-    Echo Vault hilft Ihnen, digitale Erinnerungen, letzte Worte und persönliche Angaben
-    geordnet und würdevoll zu hinterlassen – in einem einzigen Dokument.
+  <p><strong>Planen Sie heute, was anderen morgen Kraft gibt.</strong></p>
+  <p>Echo Vault hilft Ihnen, digitale Erinnerungen, letzte Worte und persönliche Angaben<br>
+  geordnet und würdevoll zu hinterlassen – in einem einzigen Dokument.</p>
+
+  <!-- Neuer Vertrauenshinweis über dem Formular -->
+  <p class="info-box">
+    📄 <strong>Hier kannst du dein eigenes digitales Vermächtnis als PDF erstellen.</strong><br>
+    Die Datei wird <strong>ausschließlich für dich</strong> generiert und <strong>nicht gespeichert</strong>.<br>
+    Du kannst sie anschließend <strong>selbst verwalten und an deine Angehörigen weitergeben</strong>.
   </p>
 
-  <h2>🧾 Digitales Vermächtnis</h2>
   <form id="combinedForm" enctype="multipart/form-data">
     <label>Ihr vollständiger Name:</label>
     <input type="text" name="name" required />
@@ -89,12 +103,23 @@
     <input type="file" name="files" multiple />
 
     <button type="submit">📄 Jetzt digitales Vermächtnis generieren</button>
+
+    <!-- Neuer Hinweis unter dem Button -->
+    <p class="hint">
+      🔐 Deine Angaben bleiben nur bei dir – Echo Vault speichert keine Daten.<br>
+      💾 Das PDF wird direkt auf deinem Gerät erstellt, sicher und nur für dich.
+    </p>
   </form>
+
+  <footer>
+    <a href="#">Datenschutz</a> | 
+    <a href="#">Impressum</a> | 
+    <a href="#">Nutzungshinweis</a>
+  </footer>
 
   <script>
     document.getElementById('combinedForm').addEventListener('submit', async function(e) {
       e.preventDefault();
-
       const formData = new FormData(this);
       const response = await fetch("/generate_vault", {
         method: "POST",
