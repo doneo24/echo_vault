@@ -26,7 +26,9 @@ def landing():
     
 @app.route("/formular")
 def formular():
-    return render_template("echo_vault_final_template.html")
+    typ = request.args.get("typ", "")
+    return render_template("echo_vault_final_template.html", typ=typ)
+
 
 
 @app.route("/status")
