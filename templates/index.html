@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -49,10 +50,6 @@
       border: none;
       border-top: 1px solid #333;
     }
-    a {
-      color: #00c37a;
-      text-decoration: none;
-    }
     pre {
       background: #222;
       padding: 1rem;
@@ -66,88 +63,42 @@
   <h1>Echo Vault</h1>
   <p>
     Planen Sie heute, was anderen morgen Kraft gibt.<br>
-    Echo Vault hilft Ihnen, digitale Erinnerungen, Botschaften und Zugänge
-    geordnet und würdevoll zu hinterlassen – verschlüsselt, persönlich, einfach.
+    Echo Vault hilft Ihnen, digitale Erinnerungen, letzte Worte und persönliche Angaben
+    geordnet und würdevoll zu hinterlassen – in einem einzigen Dokument.
   </p>
 
-  <!-- 1.Testament erstellen -->
-  <h2>🧾 Digitales Testament erstellen</h2>
-  <form id="vaultForm">
+  <h2>🧾 Digitales Vermächtnis</h2>
+  <form id="combinedForm" enctype="multipart/form-data">
     <label>Ihr vollständiger Name:</label>
     <input type="text" name="name" required />
-
-   
 
     <label>Was möchten Sie hinterlassen?</label>
-    <input type="text" name="assets" required placeholder="z. B. persönliche Konten, digitale Briefe" />
+    <textarea name="assets" required placeholder="z. B. persönliche Konten, Briefe, Zugangsdaten etc."></textarea>
 
     <label>Empfänger:</label>
-    <textarea name="beneficiaries" required placeholder="z. B. Max Musterman: Bruder, Tom Reimann: Freund"></textarea>
-    <p class="hint">Mehrere Einträge können Sie mit einen Komma trennen.</p>
+    <textarea name="beneficiaries" required placeholder="z. B. Max Mustermann: Bruder, Lisa Beispiel: Partnerin"></textarea>
+    <p class="hint">Mehrere Empfänger mit Komma trennen.</p>
 
-    <button type="submit">📄 Digitales Testament generieren</button>
+    <label>Letzte persönliche Nachricht:</label>
+    <textarea name="message" rows="5" required placeholder="Was möchten Sie den Hinterbliebenen sagen?"></textarea>
+
+    <label>Ihre Persönlichkeitsbeschreibung (für den KI-Avatar):</label>
+    <textarea name="identity" rows="3" required placeholder="z. B. ruhig, direkt, humorvoll, lebensklug"></textarea>
+
+    <label>Dateien hinzufügen (optional):</label>
+    <input type="file" name="files" multiple />
+
+    <button type="submit">📄 Jetzt digitales Vermächtnis generieren</button>
   </form>
 
-  <!-- 2. Letzte Nachricht -->
-  <h2>🖋️ Ihr letzter persönlicher Brief</h2>
-  <form id="messageForm">
-    <label>Ihr Name:</label>
-    <input type="text" name="name" required />
-
-    <label>Ihre Nachricht:</label>
-    <textarea name="message" rows="5" required placeholder=></textarea>
-
-    <button type="submit">📝 Brief generieren</button>
-  </form>
-
-  <!-- 3. KI-Avatar -->
-  <h2>🤖 KI-Avatar </h2>
-  <form id="avatarForm">
-    <label>Ihre eigene Persönlichkeitsbeschreibung:</label>
-    <textarea name="identity" rows="3" required placeholder="z. B. ruhig, direkt, witzig, nachdenklich..."></textarea>
-
-    <label>Frage an die verstorbene Person:</label>
-    <input type="text" name="message" required />
-
-    <button type="submit">💬 Antwort anzeigen</button>
-  </form>
-  <pre id="avatarReply"></pre>
-
-  <!-- 4. Vault-Übergabe -->
-  <h2>🔐 Digitale Übergabe (Vault)</h2>
-  <form id="vaultNoteForm">
-    <label>Ihr vollständiger Name:</label>
-    <input type="text" name="name" required />
-
-    <label>Was soll vertraulich übergeben werden?</label>
-    <textarea name="content" rows="5" required placeholder=></textarea>
-
-    <button type="submit">📂 Übergabedokument generieren</button>
-  </form>
-
-  <hr />
-  <p style="text-align: center;">
-    <a href="#">⬆️ Zurück zum Seitenanfang</a>
-  </p>
-
-  <!-- JS -->
   <script>
-    // 1. Testament
-    document.getElementById('vaultForm').addEventListener('submit', async function(e) {
+    document.getElementById('combinedForm').addEventListener('submit', async function(e) {
       e.preventDefault();
-      const name = this.name.value.trim();
-      const age = parseInt(this.age.value);
-      const assets = this.assets.value.split(',').map(item => item.trim());
-      const beneficiaries = {};
-      this.beneficiaries.value.split(',').forEach(pair => {
-        const [key, value] = pair.split(':').map(s => s.trim());
-        if (key && value) beneficiaries[key] = value;
-      });
 
-      const response = await fetch("/generate_will", {
+      const formData = new FormData(this);
+      const response = await fetch("/generate_vault", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, age, assets, beneficiaries })
+        body: formData
       });
 
       if (response.ok) {
@@ -155,80 +106,13 @@
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = "EchoVault_Testament.pdf";
+        link.download = "EchoVault_Digitales_Vermächtnis.pdf";
         link.click();
       } else {
-        alert("Fehler beim Testament: " + response.statusText);
-      }
-    });
-
-    // 2. Letzte Nachricht
-    document.getElementById('messageForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const name = this.name.value.trim();
-      const message = this.message.value.trim();
-
-      const response = await fetch("/last_message", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, message })
-      });
-
-      if (response.ok) {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = "Letzte_Nachricht_EchoVault.pdf";
-        link.click();
-      } else {
-        alert("Fehler bei der Nachricht: " + response.statusText);
-      }
-    });
-
-    // 3. KI-Avatar
-    document.getElementById('avatarForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const identity = this.identity.value.trim();
-      const message = this.message.value.trim();
-
-      const response = await fetch("/avatar_chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ identity, message })
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        document.getElementById('avatarReply').textContent = data.reply;
-      } else {
-        alert("Fehler bei Avatar-Antwort: " + response.statusText);
-      }
-    });
-
-    // 4. Vault-Modul
-    document.getElementById('vaultNoteForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const name = this.name.value.trim();
-      const content = this.content.value.trim();
-
-      const response = await fetch("/vault", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, content })
-      });
-
-      if (response.ok) {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = "Vault_Übergabe_EchoVault.pdf";
-        link.click();
-      } else {
-        alert("Fehler beim Vault: " + response.statusText);
+        alert("Fehler beim Erstellen des Dokuments: " + response.statusText);
       }
     });
   </script>
+
 </body>
 </html>
