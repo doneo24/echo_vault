@@ -113,10 +113,7 @@ def success():
 def cancel():
     return "❌ Zahlung abgebrochen."
 
-# Formularanzeige
-@app.route("/formular")
-def formular():
-    return render_template("index.html")
+
 
 # PDF-Generierung
 @app.route("/generate_vault", methods=["POST"])
