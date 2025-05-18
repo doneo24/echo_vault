@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template, request, send_file, jsonify
+from flask import Flask, render_template, request, send_file, jsonify, redirect, session
 from openai import OpenAI
 from fpdf import FPDF
 import os
@@ -10,11 +10,19 @@ app.secret_key = "doneo_@secure_3829kdhsA9nW2L"  # <- dein generierter Key
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 @app.route("/avatar")
+@app.route("/unlock_free", methods=["POST"])
+def unlock_free():
+    session["free_unlocked"] = True
+    return redirect("/formular")  # Passe ggf. an deine Eingabe-Seite an
+
 def home():
     return render_template("avatar.html")
 
 @app.route("/generate_vault", methods=["POST"])
 def generate_vault():
+        if not session.get("free_unlocked"):
+        return "❌ Zugriff verweigert – bitte zuerst Zugang aktivieren", 403
+
     name = request.form.get("name")
     assets = request.form.get("assets")
     beneficiaries_raw = request.form.get("beneficiaries")
