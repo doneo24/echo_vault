@@ -4,80 +4,109 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Doneo Echo Vault – Deine Botschaft für die Zukunft</title>
+  <title>Doneo Echo Vault – Deine Botschaft</title>
   <style>
     body {
-      background-color: #f2f9ff;
-      font-family: 'Segoe UI', sans-serif;
+      background-color: #e7f3f9;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #222;
       margin: 0;
-      padding: 2rem;
+      padding: 0 1rem;
     }
-    h1, h2 {
+    header {
       text-align: center;
-      color: #00457c;
+      padding: 2rem 0 1rem;
     }
-    .intro {
-      text-align: center;
-      max-width: 800px;
-      margin: 1rem auto 3rem auto;
+    header h1 {
+      font-size: 2.5rem;
+      color: #2a2a2a;
+      margin-bottom: 0.3rem;
+    }
+    header p {
       font-size: 1.1rem;
+      color: #555;
+      max-width: 700px;
+      margin: 0 auto;
     }
-    .options {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
+    section.intro {
+      text-align: center;
+      padding-top: 1rem;
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    section.grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem 0;
+      max-width: 1000px;
+      margin: auto;
     }
     .card {
       background: white;
-      padding: 1.5rem;
       border-radius: 10px;
-      width: 300px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-      text-align: center;
+      padding: 1.5rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
     .card h3 {
-      color: #00457c;
-      font-size: 1.1rem;
+      color: #0077aa;
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
     }
     .card p {
+      flex-grow: 1;
       font-size: 0.95rem;
-      margin: 0.5rem 0 1rem 0;
+      color: #333;
+      margin-bottom: 1rem;
     }
     .card button {
-      background-color: #007baf;
+      background-color: #0077aa;
       color: white;
       border: none;
-      padding: 0.6rem 1.2rem;
       border-radius: 5px;
+      padding: 0.6rem;
+      font-weight: bold;
       cursor: pointer;
     }
-    .card button:hover {
-      background-color: #005f8c;
-    }
-    ul {
-      list-style: none;
-      padding: 0;
-      max-width: 900px;
-      margin: auto;
-      font-size: 1.05rem;
-    }
-    ul li {
-      margin: 0.4rem 0;
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.9rem;
+      color: #666;
     }
   </style>
 </head>
 <body>
+  
+<header>
+  <h1>Doneo Echo Vault</h1>
+  <p>Ein sicherer Ort für deine letzte Nachricht, persönliche Worte und digitale Erinnerungen.</p>
+</header>
+  
+<section style="text-align: center; margin: 2rem auto 4rem; max-width: 800px;">
+  <h2 style="color: #00457c; font-size: 1.8rem;">Der digitale Tresor für deine Stimme, deine Worte, deine Erinnerung.</h2>
+  <p style="font-size: 1.1rem; line-height: 1.6;">
+    Echo Vault ist mehr als ein digitales Testament. Es ist ein Ort für emotionale Botschaften,<br>
+    für persönliche Worte, für Zeitkapseln – sicher, persönlich, mit KI unterstützt.
+  </p>
+  <h3 style="margin-top: 2rem; font-size: 1.4rem; color: #00457c;">Was ist Echo Vault?</h3>
+  <p style="font-size: 1.05rem; line-height: 1.6;">
+    Echo Vault ist ein geschützter digitaler Raum, in dem du deine letzte Nachricht, deinen Dank,<br>
+    einen Zukunftsbrief oder sogar deine Stimme speichern kannst.<br>
+    Alles wird als PDF-Dokument mit optionaler Audiodatei (deiner echten oder KI-generierten Stimme) bereitgestellt – sicher und würdevoll.
+  </p>
+</section>
 
-<h1>Doneo Echo Vault</h1>
-<p class="intro">
-  Deine digitale Botschaft – für später, für andere, für immer.
-  Jede Nachricht wird verschlüsselt generiert, optional mit KI-Stimme versehen,
-  als PDF zum Download bereitgestellt und bleibt ausschließlich bei dir.
-</p>
 
-<div class="options">
+<section class="intro">
+  <p><strong>Wähle aus, was du hinterlassen möchtest:</strong></p>
+</section>
+
+<section class="grid">
   <div class="card">
     <h3>Für den Moment, den ich vielleicht nicht miterlebe</h3>
     <p>Eine Botschaft für dein Kind, Partner oder Angehörige – falls du bei einem Meilenstein nicht dabei sein kannst.</p>
@@ -108,30 +137,11 @@
     <p>Eine ehrliche Danksagung – an Menschen, die dein Leben geprägt haben. Voller Wertschätzung.</p>
     <button>Auswählen</button>
   </div>
-</div>
-
-<section style="margin-top: 4rem;">
-  <h2>Was ist Doneo Echo Vault?</h2>
-  <p style="text-align: center; max-width: 800px; margin: 1rem auto; font-size: 1.1rem;">
-    Doneo Echo Vault ist ein digitaler Tresor für Erinnerungen, Dankbarkeit, Worte und wichtige Botschaften. 
-    Jede Nachricht wird verschlüsselt generiert, optional mit KI-Stimme versehen, als PDF zum Download bereitgestellt und bleibt ausschließlich bei dir – niemals gespeichert im System.
-  </p>
 </section>
 
-<section style="margin-top: 3rem;">
-  <h2>Wofür kannst du Echo Vault nutzen?</h2>
-  <ul>
-    <li><b>1. Zukunfts-Ich:</b> Schreibe dir selbst eine Botschaft für einen späteren Moment.</li>
-    <li><b>2. Familienerinnerungen:</b> Halte Familiengeschichten oder Ratschläge fest.</li>
-    <li><b>3. Abschiedsbrief:</b> Für einen Abschied, den du nicht persönlich nehmen kannst.</li>
-    <li><b>4. Dank & Wertschätzung:</b> An Menschen, die dich geprägt haben.</li>
-    <li><b>5. Kind-Nachricht:</b> Für das Kind zum 18. Geburtstag oder einem besonderen Tag.</li>
-    <li><b>6. Zeitkapsel:</b> Eine digitale Kapsel mit Audio, Video, Briefen und Bildern.</li>
-    <li><b>7. Geständnis oder Vergebung:</b> Dinge, die unausgesprochen blieben.</li>
-    <li><b>8. Motivation für schwere Zeiten:</b> Ermutigung in Krisenmomenten – für dich oder andere.</li>
-    <li><b>9. Überraschungsgeschenk:</b> Ein emotionales Geschenk für besondere Anlässe (Hochzeit, Jahrestag, Abschied).</li>
-  </ul>
-</section>
+<footer>
+  <p>&copy; 2025 Doneo Echo Vault – Alle Rechte vorbehalten | <a href="#">Datenschutz</a> | <a href="#">Impressum</a></p>
+</footer>
 
 </body>
 </html>
