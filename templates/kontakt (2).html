@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kontakt – Doneo Echo Vault</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; padding: 2rem; color: #222; }
+    h1 { color: #0077aa; }
+    form { margin-top: 1rem; display: flex; flex-direction: column; gap: 1rem; }
+    input, textarea { width: 100%; padding: 0.8rem; font-size: 1rem; border-radius: 4px; border: 1px solid #ccc; }
+    button { padding: 0.8rem; background-color: #0077aa; color: white; border: none; font-weight: bold; border-radius: 5px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Kontakt</h1>
+  <p>Du hast Fragen oder möchtest uns Feedback geben? Schreib uns eine Nachricht.</p>
+
+  <form action="mailto:info@doneo24.com" method="POST" enctype="text/plain">
+    <input type="text" name="name" placeholder="Dein Name" required />
+    <input type="email" name="email" placeholder="Deine E-Mail" required />
+    <textarea name="message" rows="5" placeholder="Deine Nachricht..." required></textarea>
+    <button type="submit">Nachricht senden</button>
+  </form>
+</body>
+</html>
