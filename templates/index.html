@@ -1,239 +1,140 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Doneo Echo Vault</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display&display=swap" rel="stylesheet">
+  <title>Doneo Echo Vault – Deine Botschaft</title>
   <style>
-    :root {
-      --primary: #1B2A41;
-      --accent: #00C37A;
-      --light-bg: #f4f9fc;
-      --text: #222;
-      --heading-font: 'Playfair Display', serif;
-      --body-font: 'Inter', sans-serif;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      font-family: var(--body-font);
-      background-color: var(--light-bg);
-      color: var(--text);
-      line-height: 1.6;
-      padding: 0;
+      background-color: #e7f3f9;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #222;
       margin: 0;
+      padding: 0 1rem;
     }
-
     header {
-      background-color: var(--primary);
-      color: white;
-      padding: 1.5rem;
       text-align: center;
-      position: relative;
+      padding: 2rem 0 1rem;
     }
-
     header h1 {
-      font-family: var(--heading-font);
-      font-size: 2.2rem;
+      font-size: 2.5rem;
+      color: #2a2a2a;
+      margin-bottom: 0.3rem;
     }
-
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem;
-      background-color: var(--primary);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 1.5rem;
-    }
-
-    .nav-links a {
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .burger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-    }
-
-    .burger div {
-      width: 25px;
-      height: 3px;
-      background: white;
-    }
-
-    .intro-section {
-      text-align: center;
-      padding: 2rem 1rem;
-      max-width: 900px;
-      margin: auto;
-    }
-
-    .intro-section h2 {
-      font-family: var(--heading-font);
-      color: var(--primary);
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-    }
-
-    .intro-section p {
+    header p {
       font-size: 1.1rem;
-      margin-bottom: 2rem;
+      color: #555;
+      max-width: 700px;
+      margin: 0 auto;
     }
-
-    .cards-container {
+    section.intro {
+      text-align: center;
+      padding-top: 1rem;
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    section.grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      padding: 2rem;
-      max-width: 1200px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem 0;
+      max-width: 1000px;
       margin: auto;
     }
-
     .card {
       background: white;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
       padding: 1.5rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
       text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
     }
-
     .card h3 {
-      color: var(--primary);
-      margin-bottom: 1rem;
+      color: #0077aa;
+      margin-bottom: 0.5rem;
       font-size: 1.2rem;
     }
-
     .card p {
-      flex-grow: 1;
-      margin-bottom: 1.5rem;
       font-size: 0.95rem;
+      color: #333;
+      margin-bottom: 1rem;
     }
-
-    .card button {
-      background-color: var(--accent);
+    .card a.button {
+      display: inline-block;
+      background-color: #0077aa;
       color: white;
       border: none;
-      padding: 0.6rem 1rem;
       border-radius: 5px;
+      padding: 0.6rem 1.2rem;
       font-weight: bold;
-      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
     }
-
+    .card a.button:hover {
+      background-color: #005f88;
+    }
     footer {
       text-align: center;
-      font-size: 0.85rem;
       padding: 2rem 1rem;
-      background-color: #e1ecf3;
-      color: #444;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-        flex-direction: column;
-        background: var(--primary);
-        position: absolute;
-        top: 60px;
-        right: 10px;
-        width: 200px;
-        padding: 1rem;
-      }
-
-      .nav-links.active {
-        display: flex;
-      }
-
-      .burger {
-        display: flex;
-      }
+      font-size: 0.9rem;
+      color: #666;
     }
   </style>
 </head>
 <body>
 
-<nav>
-  <h1>Echo Vault</h1>
-  <div class="nav-links" id="navLinks">
-    <a href="#">Start</a>
-    <a href="#">Was ist Echo?</a>
-    <a href="#">Beispiele</a>
-    <a href="#">Kontakt</a>
-  </div>
-  <div class="burger" onclick="toggleMenu()">
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
-</nav>
+<header>
+  <h1>Doneo Echo Vault</h1>
+  <p>Der digitale Tresor für deine Stimme, deine Worte, deine Erinnerung.</p>
+</header>
 
-<section class="intro-section">
-  <h2>Der digitale Tresor für deine Stimme, deine Worte, deine Erinnerung.</h2>
-  <p>Echo Vault ist mehr als ein digitales Testament. Es ist ein Ort für emotionale Botschaften, persönliche Worte und Zeitkapseln – sicher, persönlich, mit KI unterstützt.</p>
+<section style="text-align: center; margin: 2rem auto 4rem; max-width: 800px;">
+  <p style="font-size: 1.1rem; line-height: 1.6;">
+    Echo Vault ist mehr als ein digitales Testament. Es ist ein Ort für emotionale Botschaften,
+    persönliche Worte und Zeitkapseln – sicher, persönlich, mit KI unterstützt.
+  </p>
 </section>
 
-<section class="cards-container">
+<section class="intro">
+  <p><strong>Was möchtest du hinterlassen?</strong></p>
+</section>
+
+<section class="grid">
   <div class="card">
     <h3>Zukunftsbrief</h3>
-    <p>Eine Nachricht an dein zukünftiges Ich – in 5, 10 oder 20 Jahren.</p>
-    <button>Auswählen</button>
+    <p>Eine Nachricht an dein Zukunfts-Ich – in 5, 10 oder 20 Jahren.</p>
+    <a href="/formular?typ=zukunft" class="button">Auswählen</a>
   </div>
   <div class="card">
     <h3>Letzte Nachricht</h3>
     <p>Hinterlasse deine Stimme und Worte für die Menschen, die dir wichtig sind.</p>
-    <button>Auswählen</button>
+    <a href="/formular?typ=abschied" class="button">Auswählen</a>
   </div>
   <div class="card">
     <h3>Brief an dein Kind</h3>
     <p>Für den Moment, den du nicht miterleben kannst – zur Geburt, zum 18. oder zur Hochzeit.</p>
-    <button>Auswählen</button>
+    <a href="/formular?typ=kind" class="button">Auswählen</a>
   </div>
   <div class="card">
     <h3>Dank & Versöhnung</h3>
-    <p>Was du nie gesagt hast – hier kannst du es loswerden. Persönlich und ewig bewahrt.</p>
-    <button>Auswählen</button>
+    <p>Eine ehrliche Danksagung – hier kannst du es loswerden. Persönlich und ewig bewahrt.</p>
+    <a href="/formular?typ=dank" class="button">Auswählen</a>
   </div>
   <div class="card">
     <h3>Echo Zeitkapsel</h3>
     <p>Dokumente, Bilder, Audio – verschlüsselt gespeichert für die Zukunft.</p>
-    <button>Auswählen</button>
+    <a href="/formular?typ=zeitkapsel" class="button">Auswählen</a>
   </div>
   <div class="card">
     <h3>Mentoring & Übergabe</h3>
     <p>Werte, Erfahrungen, Lebenslektionen – für Nachfolger, Kinder oder Teams.</p>
-    <button>Auswählen</button>
+    <a href="/formular?typ=mentoring" class="button">Auswählen</a>
   </div>
 </section>
 
 <footer>
-  &copy; 2025 Doneo Echo Vault – Alle Rechte vorbehalten | <a href="#">Datenschutz</a> | <a href="#">Impressum</a>
+  <p>&copy; 2025 Doneo Echo Vault – Alle Rechte vorbehalten | <a href="#">Datenschutz</a> | <a href="#">Impressum</a></p>
 </footer>
-
-<script>
-  function toggleMenu() {
-    const nav = document.getElementById("navLinks");
-    nav.classList.toggle("active");
-  }
-</script>
 
 </body>
 </html>
