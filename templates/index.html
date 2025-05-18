@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -6,135 +7,101 @@
   <title>Doneo Echo Vault – Deine Botschaft</title>
   <style>
     body {
-      background-color: #e7f3f9;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #222;
+      background-color: #eaf5f1;
       margin: 0;
-      padding: 0 1rem;
+      padding: 20px;
+      color: #222;
     }
-    header {
+    .container {
+      max-width: 1000px;
+      margin: auto;
       text-align: center;
-      padding: 2rem 0 1rem;
     }
-    header h1 {
-      font-size: 2.5rem;
-      color: #2a2a2a;
-      margin-bottom: 0.3rem;
+    h1 {
+      color: #007a5c;
+      font-size: 2.4rem;
     }
-    header p {
-      font-size: 1.1rem;
-      color: #555;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-    section.intro {
-      text-align: center;
-      padding-top: 1rem;
+    .subtitle {
       font-size: 1.2rem;
-      max-width: 800px;
-      margin: 0 auto;
+      color: #444;
+      margin-bottom: 2rem;
     }
-    section.grid {
+    .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 1.5rem;
-      padding: 2rem 0;
-      max-width: 1000px;
-      margin: auto;
+      margin-top: 2rem;
     }
     .card {
       background: white;
       border-radius: 10px;
       padding: 1.5rem;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
     .card h3 {
-      color: #0077aa;
-      margin-bottom: 0.5rem;
+      color: #007a5c;
       font-size: 1.2rem;
+      margin-bottom: 0.6rem;
     }
     .card p {
       font-size: 0.95rem;
       color: #333;
-      margin-bottom: 1rem;
     }
-    .card a.button {
-      display: inline-block;
-      background-color: #0077aa;
+    .card a {
+      margin-top: 1.2rem;
+      background-color: #007a5c;
       color: white;
-      border: none;
-      border-radius: 5px;
-      padding: 0.6rem 1.2rem;
-      font-weight: bold;
       text-decoration: none;
-      transition: background-color 0.3s ease;
+      padding: 0.6rem;
+      border-radius: 5px;
+      font-weight: bold;
     }
-    .card a.button:hover {
-      background-color: #005f88;
-    }
-    footer {
-      text-align: center;
-      padding: 2rem 1rem;
-      font-size: 0.9rem;
-      color: #666;
+    .card a:hover {
+      background-color: #005f47;
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h1>Doneo Echo Vault</h1>
+    <p class="subtitle">Der digitale Tresor für deine Stimme, deine Worte, deine Erinnerung.</p>
 
-<header>
-  <h1>Doneo Echo Vault</h1>
-  <p>Der digitale Tresor für deine Stimme, deine Worte, deine Erinnerung.</p>
-</header>
-
-<section style="text-align: center; margin: 2rem auto 4rem; max-width: 800px;">
-  <p style="font-size: 1.1rem; line-height: 1.6;">
-    Echo Vault ist mehr als ein digitales Testament. Es ist ein Ort für emotionale Botschaften,
-    persönliche Worte und Zeitkapseln – sicher, persönlich, mit KI unterstützt.
-  </p>
-</section>
-
-<section class="intro">
-  <p><strong>Was möchtest du hinterlassen?</strong></p>
-</section>
-
-<section class="grid">
-  <div class="card">
-    <h3>Zukunftsbrief</h3>
-    <p>Eine Nachricht an dein Zukunfts-Ich – in 5, 10 oder 20 Jahren.</p>
-    <a href="/formular?typ=zukunft" class="button">Auswählen</a>
+    <div class="grid">
+      <div class="card">
+        <h3>Zukunftsbrief</h3>
+        <p>Eine Nachricht an dein zukünftiges Ich – in 5, 10 oder 20 Jahren.</p>
+        <a href="/formular?typ=zukunftsbrief">Auswählen</a>
+      </div>
+      <div class="card">
+        <h3>Letzte Nachricht</h3>
+        <p>Hinterlasse deine Stimme und Worte für die Menschen, die dir wichtig sind.</p>
+        <a href="/formular?typ=letzte_nachricht">Auswählen</a>
+      </div>
+      <div class="card">
+        <h3>Brief an dein Kind</h3>
+        <p>Für den Moment, den du nicht miterleben kannst – zur Geburt, zum 18. oder zur Hochzeit.</p>
+        <a href="/formular?typ=brief_kind">Auswählen</a>
+      </div>
+      <div class="card">
+        <h3>Dank & Versöhnung</h3>
+        <p>Eine ehrliche Danksagung – an Menschen, die dein Leben geprägt haben.</p>
+        <a href="/formular?typ=dank">Auswählen</a>
+      </div>
+      <div class="card">
+        <h3>Echo Zeitkapsel</h3>
+        <p>Dokumente, Bilder, Audio – verschlüsselt gespeichert für die Zukunft.</p>
+        <a href="/formular?typ=zeitkapsel">Auswählen</a>
+      </div>
+      <div class="card">
+        <h3>Mentoring & Übergabe</h3>
+        <p>Werte, Erfahrungen, Lebenslektionen – für Nachfolger, Kinder oder Teams.</p>
+        <a href="/formular?typ=mentoring">Auswählen</a>
+      </div>
+    </div>
   </div>
-  <div class="card">
-    <h3>Letzte Nachricht</h3>
-    <p>Hinterlasse deine Stimme und Worte für die Menschen, die dir wichtig sind.</p>
-    <a href="/formular?typ=abschied" class="button">Auswählen</a>
-  </div>
-  <div class="card">
-    <h3>Brief an dein Kind</h3>
-    <p>Für den Moment, den du nicht miterleben kannst – zur Geburt, zum 18. oder zur Hochzeit.</p>
-    <a href="/formular?typ=kind" class="button">Auswählen</a>
-  </div>
-  <div class="card">
-    <h3>Dank & Versöhnung</h3>
-    <p>Eine ehrliche Danksagung – hier kannst du es loswerden. Persönlich und ewig bewahrt.</p>
-    <a href="/formular?typ=dank" class="button">Auswählen</a>
-  </div>
-  <div class="card">
-    <h3>Echo Zeitkapsel</h3>
-    <p>Dokumente, Bilder, Audio – verschlüsselt gespeichert für die Zukunft.</p>
-    <a href="/formular?typ=zeitkapsel" class="button">Auswählen</a>
-  </div>
-  <div class="card">
-    <h3>Mentoring & Übergabe</h3>
-    <p>Werte, Erfahrungen, Lebenslektionen – für Nachfolger, Kinder oder Teams.</p>
-    <a href="/formular?typ=mentoring" class="button">Auswählen</a>
-  </div>
-</section>
-
-<footer>
-  <p>&copy; 2025 Doneo Echo Vault – Alle Rechte vorbehalten | <a href="#">Datenschutz</a> | <a href="#">Impressum</a></p>
-</footer>
-
 </body>
 </html>
