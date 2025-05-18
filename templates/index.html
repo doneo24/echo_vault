@@ -10,22 +10,65 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #eaf5f1;
       margin: 0;
-      padding: 20px;
+      padding: 0;
       color: #222;
+    }
+    header {
+      background-color: #007a5c;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      font-size: 1.6rem;
+      margin: 0;
+    }
+    .burger {
+      font-size: 1.6rem;
+      cursor: pointer;
+      display: none;
+    }
+    .menu {
+      display: flex;
+      justify-content: center;
+      background: #007a5c;
+      gap: 2rem;
+      padding: 0.8rem 0;
+    }
+    .menu a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    @media (max-width: 768px) {
+      .burger { display: block; }
+      .menu {
+        display: none;
+        flex-direction: column;
+        text-align: center;
+      }
+      .menu.open {
+        display: flex;
+      }
     }
     .container {
       max-width: 1000px;
       margin: auto;
+      padding: 2rem;
       text-align: center;
     }
-    h1 {
+    h2 {
       color: #007a5c;
-      font-size: 2.4rem;
+      font-size: 2rem;
+      margin-top: 2rem;
     }
-    .subtitle {
-      font-size: 1.2rem;
+    .intro {
+      font-size: 1.1rem;
       color: #444;
-      margin-bottom: 2rem;
+      margin: 1rem 0 2rem;
+      line-height: 1.6;
     }
     .grid {
       display: grid;
@@ -66,42 +109,68 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Doneo Echo Vault</h1>
-    <p class="subtitle">Der digitale Tresor für deine Stimme, deine Worte, deine Erinnerung.</p>
 
-    <div class="grid">
-      <div class="card">
-        <h3>Zukunftsbrief</h3>
-        <p>Eine Nachricht an dein zukünftiges Ich – in 5, 10 oder 20 Jahren.</p>
-        <a href="/formular?typ=zukunftsbrief">Auswählen</a>
-      </div>
-      <div class="card">
-        <h3>Letzte Nachricht</h3>
-        <p>Hinterlasse deine Stimme und Worte für die Menschen, die dir wichtig sind.</p>
-        <a href="/formular?typ=letzte_nachricht">Auswählen</a>
-      </div>
-      <div class="card">
-        <h3>Brief an dein Kind</h3>
-        <p>Für den Moment, den du nicht miterleben kannst – zur Geburt, zum 18. oder zur Hochzeit.</p>
-        <a href="/formular?typ=brief_kind">Auswählen</a>
-      </div>
-      <div class="card">
-        <h3>Dank & Versöhnung</h3>
-        <p>Eine ehrliche Danksagung – an Menschen, die dein Leben geprägt haben.</p>
-        <a href="/formular?typ=dank">Auswählen</a>
-      </div>
-      <div class="card">
-        <h3>Echo Zeitkapsel</h3>
-        <p>Dokumente, Bilder, Audio – verschlüsselt gespeichert für die Zukunft.</p>
-        <a href="/formular?typ=zeitkapsel">Auswählen</a>
-      </div>
-      <div class="card">
-        <h3>Mentoring & Übergabe</h3>
-        <p>Werte, Erfahrungen, Lebenslektionen – für Nachfolger, Kinder oder Teams.</p>
-        <a href="/formular?typ=mentoring">Auswählen</a>
-      </div>
+<header>
+  <h1>Doneo Echo Vault</h1>
+  <div class="burger" onclick="document.getElementById('nav').classList.toggle('open')">&#9776;</div>
+</header>
+<nav id="nav" class="menu">
+  <a href="#">Start</a>
+  <a href="#was-ist">Was ist Echo Vault?</a>
+  <a href="#optionen">Beispiele</a>
+  <a href="#kontakt">Kontakt</a>
+</nav>
+
+<div class="container">
+  <h2 id="was-ist">Was ist Doneo Echo Vault?</h2>
+  <p class="intro">
+    Echo Vault ist mehr als ein digitales Testament. Es ist ein Ort für emotionale Botschaften, für persönliche Worte,
+    für Zeitkapseln – sicher, persönlich, mit KI unterstützt.<br><br>
+    Hier kannst du deine letzte Nachricht, deinen Dank, einen Zukunftsbrief oder sogar deine Stimme speichern.
+    Alles wird als PDF-Dokument mit optionaler Audiodatei (deiner echten oder KI-generierten Stimme) bereitgestellt – sicher und würdevoll.
+  </p>
+
+  <h2 id="optionen">Wähle deine Botschaft:</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Zukunftsbrief</h3>
+      <p>Eine Nachricht an dein zukünftiges Ich – in 5, 10 oder 20 Jahren.</p>
+      <a href="/formular?typ=zukunftsbrief">Auswählen</a>
+    </div>
+    <div class="card">
+      <h3>Letzte Nachricht</h3>
+      <p>Hinterlasse deine Stimme und Worte für die Menschen, die dir wichtig sind.</p>
+      <a href="/formular?typ=letzte_nachricht">Auswählen</a>
+    </div>
+    <div class="card">
+      <h3>Brief an dein Kind</h3>
+      <p>Für den Moment, den du nicht miterleben kannst – zur Geburt, zum 18. oder zur Hochzeit.</p>
+      <a href="/formular?typ=brief_kind">Auswählen</a>
+    </div>
+    <div class="card">
+      <h3>Dank & Versöhnung</h3>
+      <p>Eine ehrliche Danksagung – an Menschen, die dein Leben geprägt haben.</p>
+      <a href="/formular?typ=dank">Auswählen</a>
+    </div>
+    <div class="card">
+      <h3>Echo Zeitkapsel</h3>
+      <p>Dokumente, Bilder, Audio – verschlüsselt gespeichert für die Zukunft.</p>
+      <a href="/formular?typ=zeitkapsel">Auswählen</a>
+    </div>
+    <div class="card">
+      <h3>Mentoring & Übergabe</h3>
+      <p>Werte, Erfahrungen, Lebenslektionen – für Nachfolger, Kinder oder Teams.</p>
+      <a href="/formular?typ=mentoring">Auswählen</a>
     </div>
   </div>
+</div>
+
+<script>
+  // Burger-Toggle für mobile Navigation
+  document.querySelector(".burger").addEventListener("click", function() {
+    document.getElementById("nav").classList.toggle("open");
+  });
+</script>
+
 </body>
 </html>
