@@ -1,142 +1,71 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Echo Vault - Digitales Vermächtnis</title>
-  <style>
-    body {
-      background-color: #121212;
-      color: #f1f1f1;
-      font-family: Arial, sans-serif;
-      padding: 2rem;
-      max-width: 700px;
-      margin: auto;
-    }
-    h1, h2 {
-      color: #00c37a;
-      margin-top: 2.5rem;
-      text-align: center;
-    }
-    input, textarea, button {
-      width: 100%;
-      padding: 0.8rem;
-      margin: 0.5rem 0 1rem 0;
-      border: none;
-      border-radius: 4px;
-      font-size: 1rem;
-    }
-    input, textarea {
-      background: #222;
-      color: #fff;
-    }
-    button {
-      background-color: #00c37a;
-      color: black;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #00a466;
-    }
-    p.hint {
-      font-size: 0.9rem;
-      color: #888;
-      margin-top: -0.5rem;
-      margin-bottom: 1rem;
-    }
-    .info-box {
-      background-color: #1a1a1a;
-      color: #bbb;
-      padding: 1rem;
-      border-radius: 6px;
-      margin-bottom: 2rem;
-      text-align: center;
-      font-size: 0.95rem;
-    }
-    footer {
-      font-size: 0.8rem;
-      margin-top: 4rem;
-      color: #666;
-      text-align: center;
-    }
-    footer a {
-      color: #00c37a;
-      text-decoration: none;
-      margin: 0 10px;
-    }
-  </style>
-</head>
-<body>
 
-  <h1>Echo Vault</h1>
-  <p style="text-align: center;">
-    <strong>Planen Sie heute, was anderen morgen Kraft gibt.</strong><br>
-    Echo Vault hilft Ihnen, digitale Erinnerungen, letzte Worte und persönliche Angaben
-    geordnet und würdevoll zu hinterlassen – in einem einzigen Dokument.
-  </p>
+from flask import Flask, render_template, request, send_file, jsonify
+from openai import OpenAI
+from fpdf import FPDF
+import os
+import tempfile
 
-  <p class="info-box">
-    📄 <strong>Hier kannst du dein eigenes digitales Vermächtnis als PDF erstellen.</strong><br>
-    Die Datei wird <strong>ausschließlich für dich</strong> generiert und <strong>nicht gespeichert</strong>.<br>
-    Du kannst sie anschließend <strong>selbst verwalten und an deine Angehörigen weitergeben</strong>.
-  </p>
+app = Flask(__name__)
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-  <form id="combinedForm" enctype="multipart/form-data">
-    <label>Ihr vollständiger Name:</label>
-    <input type="text" name="name" required />
+@app.route("/")
+def home():
+    return render_template("index.html")
 
-    <label>Was möchten Sie hinterlassen?</label>
-    <textarea name="assets" required placeholder="z. B. persönliche Konten, Briefe, Zugangsdaten etc."></textarea>
+@app.route("/generate_vault", methods=["POST"])
+def generate_vault():
+    name = request.form.get("name")
+    assets = request.form.get("assets")
+    beneficiaries_raw = request.form.get("beneficiaries")
+    message = request.form.get("message")
+    identity = request.form.get("identity")
 
-    <label>Empfänger:</label>
-    <textarea name="beneficiaries" required placeholder="z. B. Max Mustermann: Bruder, Lisa Beispiel: Partnerin"></textarea>
-    <p class="hint">Mehrere Empfänger mit Komma trennen.</p>
+    beneficiaries = {}
+    for pair in beneficiaries_raw.split(","):
+        if ":" in pair:
+            k, v = pair.split(":", 1)
+            beneficiaries[k.strip()] = v.strip()
 
-    <label>Letzte persönliche Nachricht:</label>
-    <textarea name="message" rows="5" required placeholder="Was möchten Sie den Hinterbliebenen sagen?"></textarea>
+    people_text = ", ".join([f"{k} ({v})" for k, v in beneficiaries.items()])
 
-    <label>Ihre Persönlichkeitsbeschreibung (für den KI-Avatar):</label>
-    <textarea name="identity" rows="3" required placeholder="z. B. ruhig, direkt, humorvoll, lebensklug"></textarea>
+    will_prompt = f"Du bist ein erfahrener juristischer Berater. Erstelle ein einfaches, deutschsprachiges Testament für: Name: {name}, Digitale Güter: {assets}, Begünstigte: {people_text}"
+    letter_prompt = f"Schreibe einen würdevollen, persönlichen Abschiedsbrief von {name} an seine Hinterbliebenen: {message}"
+    avatar_notice = f"Diese Person hat folgende Persönlichkeitsbeschreibung hinterlassen: {identity}. Mithilfe dieser Angaben kann Echo Vault eine KI-gestützte Antwort im Stil dieser Person simulieren."
 
-    <label>Dateien hinzufügen (optional):</label>
-    <input type="file" name="files" multiple />
+    try:
+        will_response = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": will_prompt}]
+        )
+        letter_response = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": letter_prompt}]
+        )
 
-    <button type="submit">📄 Jetzt digitales Vermächtnis generieren</button>
+        will_text = will_response.choices[0].message.content.strip()
+        letter_text = letter_response.choices[0].message.content.strip()
 
-    <p class="hint">
-      🔐 Deine Angaben bleiben nur bei dir – Echo Vault speichert keine Daten.<br>
-      💾 Das PDF wird direkt auf deinem Gerät erstellt, sicher und nur für dich.
-    </p>
-  </form>
+        pdf = FPDF()
+        pdf.add_page()
+        pdf.set_font("Arial", size=12)
+        pdf.multi_cell(0, 10, f"Digitales Testament für: {name}")
+        pdf.multi_cell(0, 10, will_text)
 
-  <footer>
-    <a href="/datenschutz.html" target="_blank">Datenschutz</a> |
-    <a href="/impressum.html" target="_blank">Impressum</a> |
-    <a href="/nutzungshinweis.html" target="_blank">Nutzungshinweis</a>
-  </footer>
+        pdf.add_page()
+        pdf.multi_cell(0, 10, f"Letzte persönliche Nachricht von {name}")
+        pdf.multi_cell(0, 10, letter_text)
 
-  <script>
-    document.getElementById('combinedForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const formData = new FormData(this);
-      const response = await fetch("/generate_vault", {
-        method: "POST",
-        body: formData
-      });
+        pdf.add_page()
+        pdf.multi_cell(0, 10, "Hinweis für Angehörige:")
+        pdf.multi_cell(0, 10, avatar_notice)
 
-      if (response.ok) {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = "EchoVault_Digitales_Vermächtnis.pdf";
-        link.click();
-      } else {
-        alert("Fehler beim Erstellen des Dokuments: " + response.statusText);
-      }
-    });
-  </script>
+        tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
+        pdf.output(tmp.name)
 
-</body>
-</html>
+        return send_file(tmp.name, as_attachment=True, download_name="EchoVault_Digitales_Vermächtnis.pdf")
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
