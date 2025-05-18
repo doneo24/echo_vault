@@ -20,6 +20,9 @@ def is_access_granted():
         session.get("plus_unlocked"),
         session.get("pro_unlocked")
     ])
+@app.route("/")
+def landing():
+    return render_template("index.html")
 
 @app.route("/status")
 def status():
