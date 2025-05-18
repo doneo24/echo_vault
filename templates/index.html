@@ -4,17 +4,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Doneo Echo Vault – Dein digitales Vermächtnis</title>
+  <title>Doneo Echo Vault</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #eaf5f1;
       margin: 0;
-      padding: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f8fb;
       color: #222;
     }
     header {
-      background-color: #007a5c;
+      background-color: #1e2a38;
       color: white;
       padding: 1rem 2rem;
       display: flex;
@@ -22,72 +21,71 @@
       align-items: center;
     }
     header h1 {
-      font-size: 1.6rem;
       margin: 0;
+      font-size: 1.4rem;
     }
-    .burger {
-      font-size: 1.6rem;
-      cursor: pointer;
-      display: none;
-    }
-    .menu {
-      display: flex;
-      justify-content: center;
-      background: #007a5c;
-      gap: 2rem;
-      padding: 0.8rem 0;
-    }
-    .menu a {
+    nav a {
       color: white;
+      margin-left: 1.5rem;
       text-decoration: none;
       font-weight: bold;
     }
-    @media (max-width: 768px) {
-      .burger { display: block; }
-      .menu {
-        display: none;
-        flex-direction: column;
-        text-align: center;
-      }
-      .menu.open {
-        display: flex;
-      }
-    }
-    .cta {
-      background-color: #ffffff;
-      padding: 4rem 2rem;
+    .hero {
       text-align: center;
+      padding: 4rem 2rem 2rem;
+      background: white;
     }
-    .cta h2 {
-      font-size: 2.2rem;
-      color: #007a5c;
+    .hero h2 {
+      font-size: 2rem;
       margin-bottom: 1rem;
     }
-    .cta p {
+    .hero p {
       font-size: 1.1rem;
-      max-width: 700px;
-      margin: auto;
-      line-height: 1.6;
-      color: #333;
+      margin-bottom: 2rem;
     }
-    .cta a {
-      display: inline-block;
-      margin-top: 2rem;
-      background-color: #007a5c;
+    .hero a.button {
+      background-color: #0a4b78;
       color: white;
-      font-weight: bold;
       padding: 0.8rem 1.6rem;
       text-decoration: none;
-      border-radius: 5px;
+      font-weight: bold;
+      border-radius: 6px;
     }
-    .cta a:hover {
-      background-color: #005f47;
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      padding: 3rem 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .card h3 {
+      margin-top: 0;
+      color: #0a4b78;
+    }
+    .card p {
+      margin: 0.5rem 0 1rem;
+    }
+    .card a {
+      background: #0a4b78;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      text-decoration: none;
+      display: inline-block;
     }
     footer {
       text-align: center;
-      font-size: 0.9rem;
-      color: #555;
       padding: 2rem 1rem;
+      font-size: 0.9rem;
+      color: #666;
+      background: #eef2f4;
     }
   </style>
 </head>
@@ -95,30 +93,55 @@
 
 <header>
   <h1>Doneo Echo Vault</h1>
-  <div class="burger" onclick="document.getElementById('nav').classList.toggle('open')">&#9776;</div>
+  <nav>
+    <a href="/was-ist">Was ist Echo Vault?</a>
+    <a href="/beispiele">Beispiele</a>
+    <a href="/kontakt">Kontakt</a>
+  </nav>
 </header>
-<nav id="nav" class="menu">
-  <a href="/was-ist">Was ist Echo Vault?</a>
-  <a href="/beispiele">Beispiele</a>
-  <a href="/kontakt">Kontakt</a>
-</nav>
 
-<section class="cta">
+<section class="hero">
   <h2>Dein digitales Vermächtnis beginnt jetzt</h2>
-  <p>Mit Doneo Echo Vault kannst du Botschaften, Erinnerungen und deine Stimme festhalten –
-  sicher, verschlüsselt und genau für den Moment, den du vielleicht nicht miterleben wirst.</p>
-  <a href="/formular">Jetzt persönliche Botschaft erstellen</a>
+  <p>Mit Doneo Echo Vault kannst du Botschaften, Erinnerungen und deine Stimme festhalten – sicher, verschlüsselt und genau für den Moment, den du vielleicht nicht miterleben wirst.</p>
+  <a href="/formular" class="button">Jetzt persönliche Botschaft erstellen</a>
+</section>
+
+<section class="grid">
+  <div class="card">
+    <h3>Zukunftsbrief</h3>
+    <p>Eine Nachricht an dein zukünftiges Ich – in 5, 10 oder 20 Jahren.</p>
+    <a href="/formular?typ=Zukunftsbrief">Auswählen</a>
+  </div>
+  <div class="card">
+    <h3>Letzte Nachricht</h3>
+    <p>Hinterlasse deine Stimme und Worte für die Menschen, die dir wichtig sind.</p>
+    <a href="/formular?typ=Letzte Nachricht">Auswählen</a>
+  </div>
+  <div class="card">
+    <h3>Brief an dein Kind</h3>
+    <p>Für den Moment, den du nicht miterleben kannst – zur Geburt, zum 18., zur Hochzeit.</p>
+    <a href="/formular?typ=Brief an dein Kind">Auswählen</a>
+  </div>
+  <div class="card">
+    <h3>Dank & Versöhnung</h3>
+    <p>Was du schon immer sagen wolltest – an Eltern, Lehrer, Partner oder Freunde.</p>
+    <a href="/formular?typ=Dank & Versöhnung">Auswählen</a>
+  </div>
+  <div class="card">
+    <h3>Echo Zeitkapsel</h3>
+    <p>Dokumente, Bilder, Audio – verschlüsselt gespeichert für die Zukunft.</p>
+    <a href="/formular?typ=Echo Zeitkapsel">Auswählen</a>
+  </div>
+  <div class="card">
+    <h3>Mentoring & Übergabe</h3>
+    <p>Werte, Erfahrungen, Lebenslektionen – für Nachfolger, Kinder oder Teams.</p>
+    <a href="/formular?typ=Mentoring & Übergabe">Auswählen</a>
+  </div>
 </section>
 
 <footer>
-  <p>&copy; 2025 Doneo Echo Vault – Alle Rechte vorbehalten</p>
+  <p>&copy; 2025 Doneo Echo Vault – Alle Rechte vorbehalten | <a href="/datenschutz">Datenschutz</a> | <a href="/impressum">Impressum</a></p>
 </footer>
-
-<script>
-  document.querySelector(".burger").addEventListener("click", function() {
-    document.getElementById("nav").classList.toggle("open");
-  });
-</script>
 
 </body>
 </html>
