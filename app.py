@@ -5,8 +5,6 @@ import tempfile
 from fpdf import FPDF
 
 app = Flask(__name__)
-
-# Initialisiere OpenAI-Client mit neuem SDK
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 @app.route("/generate_will", methods=["POST"])
@@ -37,4 +35,24 @@ def generate_will():
         )
         will_text = response.choices[0].message.content
 
-        "# PDF erstellen  pdf"
+        # PDF erstellen
+        pdf = FPDF()
+        pdf.add_page()
+        pdf.set_font("Arial", size=12)
+        for line in will_text.split('\n'):
+            pdf.multi_cell(0, 10, line)
+
+        tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
+        pdf.output(tmp.name)
+
+        return send_file(tmp.name, as_attachment=True, download_name="EchoVault_Testament.pdf")
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/")
+def index():
+    return "✅ Echo Vault Server läuft."
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
