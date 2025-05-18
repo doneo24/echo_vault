@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Echo Vault Formular</title>
+  <style>
+    body {
+      background-color: #f5faff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #222;
+      margin: 0;
+      padding: 2rem;
+      max-width: 700px;
+      margin: auto;
+    }
+    h2 {
+      text-align: center;
+      color: #00457c;
+      margin-bottom: 1.5rem;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 0.8rem;
+      margin-top: 0.3rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+    button {
+      background-color: #0077aa;
+      color: white;
+      border: none;
+      margin-top: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #005f88;
+    }
+  </style>
+</head>
+<body>
+
+  {% if typ %}
+    <h2>Du verfasst: {{ typ | capitalize }}</h2>
+  {% else %}
+    <h2>Deine persönliche Botschaft</h2>
+  {% endif %}
+
+  <form method="POST" action="/submit_form" enctype="multipart/form-data">
+    <label for="name">Vollständiger Name</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="message">Nachricht oder Inhalt</label>
+    <textarea id="message" name="message" rows="6" required></textarea>
+
+    <label for="identity">Deine Persönlichkeitsbeschreibung (optional)</label>
+    <textarea id="identity" name="identity" rows="3" placeholder="z. B. ruhig, humorvoll, direkt"></textarea>
+
+    <label for="file">Optional: Dateien hochladen</label>
+    <input type="file" id="file" name="file" multiple>
+
+    <input type="hidden" name="typ" value="{{ typ }}">
+
+    <button type="submit">Jetzt generieren</button>
+  </form>
+
+</body>
+</html>
