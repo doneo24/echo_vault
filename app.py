@@ -113,6 +113,17 @@ def success():
 def cancel():
     return "❌ Zahlung abgebrochen."
 
+@app.route("/datenschutz")
+def datenschutz():
+    return render_template("datenschutz.html")
+
+@app.route("/impressum")
+def impressum():
+    return render_template("impressum.html")
+
+@app.route("/kontakt")
+def kontakt():
+    return render_template("kontakt.html")
 
 
 # PDF-Generierung
