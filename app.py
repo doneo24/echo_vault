@@ -1,145 +1,118 @@
-from flask import Flask, request, jsonify, send_file, render_template
-from openai import OpenAI
-import os
-import tempfile
-from fpdf import FPDF
 
-app = Flask(__name__)
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Echo Vault – Digitales Vermächtnis</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #f1f1f1;
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      max-width: 700px;
+      margin: auto;
+    }
+    h1, h2 {
+      color: #00c37a;
+      margin-top: 2.5rem;
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 0.5rem 0 1rem 0;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    input, textarea {
+      background: #222;
+      color: #fff;
+    }
+    button {
+      background-color: #00c37a;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #00a466;
+    }
+    p.hint {
+      font-size: 0.9rem;
+      color: #888;
+      margin-top: -0.5rem;
+      margin-bottom: 1rem;
+    }
+    hr {
+      margin: 3rem 0;
+      border: none;
+      border-top: 1px solid #333;
+    }
+    pre {
+      background: #222;
+      padding: 1rem;
+      border-radius: 6px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
 
-@app.route("/", methods=["GET"])
-def index():
-    return render_template("index.html")
+  <h1>Echo Vault</h1>
+  <p>
+    Planen Sie heute, was anderen morgen Kraft gibt.<br>
+    Echo Vault hilft Ihnen, digitale Erinnerungen, letzte Worte und persönliche Angaben
+    geordnet und würdevoll zu hinterlassen – in einem einzigen Dokument.
+  </p>
 
-@app.route("/generate_will", methods=["POST"])
-def generate_will():
-    data = request.json
-    name = data.get("name")
-   
-    assets = data.get("assets", [])
-    beneficiaries = data.get("beneficiaries", {})
+  <h2>🧾 Digitales Vermächtnis</h2>
+  <form id="combinedForm" enctype="multipart/form-data">
+    <label>Ihr vollständiger Name:</label>
+    <input type="text" name="name" required />
 
-    assets_text = ", ".join(assets)
-    people_text = ", ".join([f"{k} ({v})" for k, v in beneficiaries.items()])
-    prompt = f"""
-    Du bist ein erfahrener juristischer Berater. Erstelle ein einfaches, deutschsprachiges Testament für:
-    Name: {name},
-    Digitale Güter: {assets_text}
-    Begünstigte: {people_text}
-    """
+    <label>Was möchten Sie hinterlassen?</label>
+    <textarea name="assets" required placeholder="z. B. persönliche Konten, Briefe, Zugangsdaten etc."></textarea>
 
-    try:
-        response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": prompt}]
-        )
-        will_text = response.choices[0].message.content
+    <label>Empfänger:</label>
+    <textarea name="beneficiaries" required placeholder="z. B. Max Mustermann: Bruder, Lisa Beispiel: Partnerin"></textarea>
+    <p class="hint">Mehrere Empfänger mit Komma trennen.</p>
 
-        pdf = FPDF()
-        pdf.add_page()
-        pdf.set_font("Arial", size=12)
-        for line in will_text.split('\n'):
-            pdf.multi_cell(0, 10, line)
+    <label>Letzte persönliche Nachricht:</label>
+    <textarea name="message" rows="5" required placeholder="Was möchten Sie den Hinterbliebenen sagen?"></textarea>
 
-        tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
-        pdf.output(tmp.name)
+    <label>Ihre Persönlichkeitsbeschreibung (für den KI-Avatar):</label>
+    <textarea name="identity" rows="3" required placeholder="z. B. ruhig, direkt, humorvoll, lebensklug"></textarea>
 
-        return send_file(tmp.name, as_attachment=True, download_name="EchoVault_Testament.pdf")
+    <label>Dateien hinzufügen (optional):</label>
+    <input type="file" name="files" multiple />
 
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+    <button type="submit">📄 Jetzt digitales Vermächtnis generieren</button>
+  </form>
 
-@app.route("/last_message", methods=["POST"])
-def last_message():
-    data = request.json
-    name = data.get("name")
-    message = data.get("message")
+  <script>
+    document.getElementById('combinedForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
 
-    prompt = f"""
-    Schreibe einen würdevollen Abschiedsbrief von {name} auf Basis dieser Nachricht:
+      const formData = new FormData(this);
+      const response = await fetch("/generate_vault", {
+        method: "POST",
+        body: formData
+      });
 
-    {message}
-    """
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = "EchoVault_Digitales_Vermächtnis.pdf";
+        link.click();
+      } else {
+        alert("Fehler beim Erstellen des Dokuments: " + response.statusText);
+      }
+    });
+  </script>
 
-    try:
-        response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": prompt}]
-        )
-        final_letter = response.choices[0].message.content
-
-        pdf = FPDF()
-        pdf.add_page()
-        pdf.set_font("Arial", size=12)
-        for line in final_letter.split('\n'):
-            pdf.multi_cell(0, 10, line)
-
-        tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
-        pdf.output(tmp.name)
-
-        return send_file(tmp.name, as_attachment=True, download_name="Letzte_Nachricht_EchoVault.pdf")
-
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-@app.route("/avatar_chat", methods=["POST"])
-def avatar_chat():
-    data = request.json
-    base_identity = data.get("identity")
-    message = data.get("message")
-
-    system_prompt = f"""
-    Du bist der digitale Avatar eines verstorbenen Menschen.
-    Du antwortest so, wie diese Person zu Lebzeiten gesprochen hat.
-    Hier ist ihre Persönlichkeit: {base_identity}
-    """
-
-    try:
-        response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": message}
-            ]
-        )
-        reply = response.choices[0].message.content
-        return jsonify({"reply": reply})
-
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-@app.route("/vault", methods=["POST"])
-def vault():
-    data = request.json
-    name = data.get("name")
-    content = data.get("content")
-
-    prompt = f"""
-    Formuliere eine strukturierte, professionelle Übergabedokumentation für folgende vertrauliche Daten von {name}:
-
-    {content}
-    """
-
-    try:
-        response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": prompt}]
-        )
-        result = response.choices[0].message.content
-
-        pdf = FPDF()
-        pdf.add_page()
-        pdf.set_font("Arial", size=12)
-        for line in result.split('\n'):
-            pdf.multi_cell(0, 10, line)
-
-        tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
-        pdf.output(tmp.name)
-
-        return send_file(tmp.name, as_attachment=True, download_name="Vault_Übergabe_EchoVault.pdf")
-
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+</body>
+</html>
