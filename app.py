@@ -143,11 +143,17 @@ def generate_vault():
     if not is_access_granted():
         return "❌ Zugriff verweigert – bitte zuerst Zugang aktivieren", 403
 
-from flask import request, send_file, redirect, url_for
-from werkzeug.utils import secure_filename
-from fpdf import FPDF
-import os
-import tempfile
+@app.route("/datenschutz")
+def datenschutz():
+    return render_template("datenschutz.html")
+
+@app.route("/impressum")
+def impressum():
+    return render_template("impressum.html")
+
+@app.route("/kontakt")
+def kontakt():
+    return render_template("kontakt.html")
 
 @app.route("/submit_form", methods=["POST"])
 def submit_form():
@@ -201,17 +207,7 @@ def submit_form():
         pdf.output(temp.name)
         return send_file(temp.name, as_attachment=True, download_name="EchoVault.pdf")
 
-@app.route("/datenschutz")
-def datenschutz():
-    return render_template("datenschutz.html")
 
-@app.route("/impressum")
-def impressum():
-    return render_template("impressum.html")
-
-@app.route("/kontakt")
-def kontakt():
-    return render_template("kontakt.html")
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
 
