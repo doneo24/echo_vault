@@ -187,16 +187,15 @@ def generate():
                 .encode('latin-1', 'ignore')
                 .decode('latin-1')
         )
-
-    nachricht = clean_text(nachricht)
-    typ = clean_text(typ)
-    name = clean_text(name)
+        nachricht = clean_text(nachricht)
+        typ = clean_text(typ) 
+        name = clean_text(name)
 
     # PDF erstellen
     pdf = FPDF()
     pdf.add_page()
     pdf.set_font("Arial", size=12)
-    pdf.multi_cell(0, 10, f"Echo Vault – {typ}\n\nName: {name}\n\nNachricht:\n{nachricht}")
+    pdf.multi_cell(0, 10, f"Echo Vault - {typ}\n\nName: {name}\n\nNachricht:\n{nachricht}")
 
     temp_dir = tempfile.mkdtemp()
     pdf_path = os.path.join(temp_dir, "EchoVault_Generiert.pdf")
