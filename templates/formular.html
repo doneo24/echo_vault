@@ -1,57 +1,41 @@
 {% extends "base.html" %}
 {% block title %}Echo Vault – Formular{% endblock %}
 {% block content %}
-
-<section class="mt-12">
-  <h2 class="text-3xl font-bold mb-6 text-center" style="font-family: 'Source Serif Pro', serif;">Dein digitales Vermächtnis</h2>
-  <p class="text-center mb-6">
-    <a href="/" class="text-teal-600 hover:underline">Zurück zur Startseite</a>
-  </p>
-
-  <form action="/generate" method="POST" enctype="multipart/form-data"
-    class="bg-white p-8 rounded-xl shadow max-w-xl mx-auto text-left">
-
-    <!-- Art des Vermächtnisses -->
-    <label for="typ" class="block font-semibold mb-1">Art des Vermächtnisses</label>
-    <input type="text" id="typ" name="typ" value="{{ typ }}" required
-      class="w-full max-w-md mb-4 p-2 border border-gray-300 rounded-md">
-
-    <!-- KI generieren Auswahl -->
-    <label class="block font-semibold mb-2">Nachricht automatisch durch KI generieren?</label>
-    <div class="flex gap-6 mb-4">
-      <label><input type="radio" name="ki_generieren" value="ja" required> Ja</label>
-      <label><input type="radio" name="ki_generieren" value="nein" required> Nein</label>
+<section class="form-section">
+  <h2 class="text-2xl font-bold mb-6">Dein digitales Vermächtnis</h2>
+  <form action="/generate" method="POST" enctype="multipart/form-data">
+    <div class="mb-4">
+      <label for="typ">Art des Vermächtnisses</label><br>
+      <input type="text" id="typ" name="typ" value="{{ typ }}" required>
     </div>
 
-    <!-- Stichpunkte -->
-    <label for="stichpunkte" class="block font-semibold mb-1">Stichpunkte für die KI (optional)</label>
-    <textarea id="stichpunkte" name="stichpunkte" rows="3"
-      class="w-full max-w-md mb-4 p-2 border border-gray-300 rounded-md"></textarea>
-
-    <!-- Name -->
-    <label for="name" class="block font-semibold mb-1">Dein vollständiger Name</label>
-    <input type="text" id="name" name="name" required
-      class="w-full max-w-md mb-4 p-2 border border-gray-300 rounded-md">
-
-    <!-- Nachricht -->
-    <label for="nachricht" class="block font-semibold mb-1">Deine Nachricht</label>
-    <textarea id="nachricht" name="nachricht" rows="6" required
-      class="w-full max-w-md mb-4 p-2 border border-gray-300 rounded-md"></textarea>
-
-    <!-- Datei -->
-    <label for="datei" class="block font-semibold mb-1">Datei anhängen (optional)</label>
-    <input type="file" id="datei" name="datei"
-      class="w-full max-w-md mb-6 text-sm text-gray-600">
-
-    <!-- Button -->
-    <div class="text-center">
-      <button type="submit"
-        class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-6 rounded-lg shadow">
-        Jetzt generieren
-      </button>
+    <div class="mb-4">
+      <label>Nachricht automatisch durch KI generieren?</label><br>
+      <input type="radio" name="ki_generieren" value="ja" required> Ja
+      <input type="radio" name="ki_generieren" value="nein" required> Nein
     </div>
 
+    <div class="mb-4">
+      <label for="stichpunkte">Stichpunkte für die KI (optional)</label><br>
+      <textarea id="stichpunkte" name="stichpunkte" rows="3" placeholder="z. B. über mein Leben, meine Tochter, Dank an meine Eltern"></textarea>
+    </div>
+
+    <div class="mb-4">
+      <label for="name">Dein vollständiger Name</label><br>
+      <input type="text" id="name" name="name" required>
+    </div>
+
+    <div class="mb-4">
+      <label for="nachricht">Deine Nachricht</label><br>
+      <textarea id="nachricht" name="nachricht" rows="6" placeholder="Was möchtest du mitteilen?" required></textarea>
+    </div>
+
+    <div class="mb-4">
+      <label for="datei">Datei anhängen (optional)</label><br>
+      <input type="file" id="datei" name="datei">
+    </div>
+
+    <button type="submit">Jetzt generieren</button>
   </form>
 </section>
-
 {% endblock %}
