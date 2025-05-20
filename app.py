@@ -20,7 +20,8 @@ def index():
     
 @app.route("/formular")
 def formular():
-    return render_template("formular.html")
+    typ = request.args.get("typ", "")
+    return render_template("formular.html", typ=typ)
     
 @app.route("/was-ist-echo-vault")
 def was_ist_echo_vault():
