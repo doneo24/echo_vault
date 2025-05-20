@@ -138,38 +138,45 @@ def track_pdf_usage():
             session["last_access"] = str(datetime.datetime.now())
 
 # Formularverarbeitung
-@app.route("/submit_form", methods=["POST"])
-def submit_form():
+@app.route("/generate", methods=["POST"])
+def generate():
     if not is_access_granted():
         return "❌ Zugriff verweigert – bitte zuerst Zugang aktivieren", 403
 
     name = request.form.get("name", "Unbekannt")
-    assets = request.form.get("assets", "")
-    beneficiaries = request.form.get("beneficiaries", "")
-    message = request.form.get("message", "")
-    identity = request.form.get("identity", "")
     typ = request.form.get("typ", "Echo Vault")
-    uploaded_files = request.files.getlist("file")
+    nachricht = request.form.get("nachricht", "")
+    stichpunkte = request.form.get("stichpunkte", "")
+    ki_generieren = request.form.get("ki_generieren", "nein")
+    datei = request.files.get("datei")
 
+    # KI-Text erzeugen, wenn gewünscht
+    if ki_generieren == "ja" and stichpunkte.strip():
+        prompt = f"Schreibe eine emotionale, würdevolle Nachricht für ein digitales Vermächtnis. Stichpunkte: {stichpunkte}"
+        try:
+            response = client.chat.completions.create(
+                model="gpt-3.5-turbo",
+                messages=[{"role": "user", "content": prompt}]
+            )
+            nachricht = response.choices[0].message.content.strip()
+        except Exception as e:
+            return f"Fehler bei der KI-Generierung: {str(e)}", 500
+
+    # PDF erzeugen
     pdf = FPDF()
     pdf.add_page()
     pdf.set_font("Arial", size=12)
-    pdf.multi_cell(0, 10, f"Echo Vault – Digitales Vermächtnis\n\nKategorie: {typ}\n\nName: {name}")
-    pdf.multi_cell(0, 10, f"Hinterlassene Inhalte: {assets}")
-    pdf.multi_cell(0, 10, f"Empfänger: {beneficiaries}")
-    pdf.multi_cell(0, 10, f"Letzte Nachricht:\n{message}")
-    pdf.multi_cell(0, 10, f"Persönlichkeitsbeschreibung:\n{identity}")
+    pdf.multi_cell(0, 10, f"Echo Vault – {typ}\n\nName: {name}\n\nNachricht:\n{nachricht}")
 
     temp_dir = tempfile.mkdtemp()
-    pdf_path = os.path.join(temp_dir, "EchoVault_Dokument.pdf")
+    pdf_path = os.path.join(temp_dir, "EchoVault_Generiert.pdf")
     pdf.output(pdf_path)
 
-    for file in uploaded_files:
-        if file and file.filename:
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(temp_dir, filename))
+    if datei and datei.filename:
+        datei.save(os.path.join(temp_dir, secure_filename(datei.filename)))
 
-    return send_file(pdf_path, as_attachment=True, download_name="EchoVault_Dokument.pdf")
+    return send_file(pdf_path, as_attachment=True, download_name="EchoVault_Generiert.pdf")
+
 
 # Server starten
 if __name__ == "__main__":
