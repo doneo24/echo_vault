@@ -168,12 +168,19 @@ def generate():
         except Exception as e:
             return f"Fehler bei der KI-Generierung: {str(e)}", 500
 
+    # ❗️ Sonderzeichen fixen (nachdem der Text endgültig steht)
+    def clean_text(text):
+        return text.replace("–", "-").replace("“", '"').replace("”", '"').encode('latin-1', 'ignore').decode('latin-1')
+
+    nachricht = clean_text(nachricht)
+
     # PDF erzeugen
     pdf = FPDF()
     pdf.add_page()
     pdf.set_font("Arial", size=12)
     pdf.multi_cell(0, 10, f"Echo Vault – {typ}\n\nName: {name}\n\nNachricht:\n{nachricht}")
 
+    import tempfile, os
     temp_dir = tempfile.mkdtemp()
     pdf_path = os.path.join(temp_dir, "EchoVault_Generiert.pdf")
     pdf.output(pdf_path)
@@ -182,6 +189,7 @@ def generate():
         datei.save(os.path.join(temp_dir, secure_filename(datei.filename)))
 
     return send_file(pdf_path, as_attachment=True, download_name="EchoVault_Generiert.pdf")
+
 
 
 # Server starten
