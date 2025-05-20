@@ -1,41 +1,66 @@
-{% extends "base.html" %}
-{% block title %}Echo Vault – Formular{% endblock %}
-{% block content %}
-<section class="form-section">
-  <h2 class="text-2xl font-bold mb-6">Dein digitales Vermächtnis</h2>
-  <form action="/generate" method="POST" enctype="multipart/form-data">
-    <div class="mb-4">
-      <label for="typ">Art des Vermächtnisses</label><br>
-      <input type="text" id="typ" name="typ" value="{{ typ }}" required>
-    </div>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doneo Echo Vault – Digitales Vermächtnis</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Segoe+UI&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #f0f4f8, #ffffff);
+    }
+    h1, h2 {
+      font-family: 'Playfair Display', serif;
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
 
-    <div class="mb-4">
-      <label>Nachricht automatisch durch KI generieren?</label><br>
-      <input type="radio" name="ki_generieren" value="ja" required> Ja
-      <input type="radio" name="ki_generieren" value="nein" required> Nein
-    </div>
+  <div class="bg-white shadow-lg rounded-xl max-w-2xl w-full p-8 mx-4 text-center">
+    <h1 class="text-3xl text-gray-800 mb-2">Dein digitales Vermächtnis</h1>
+    <p class="text-gray-600 mb-6 italic">Hinterlasse Worte, die bleiben dürfen.</p>
 
-    <div class="mb-4">
-      <label for="stichpunkte">Stichpunkte für die KI (optional)</label><br>
-      <textarea id="stichpunkte" name="stichpunkte" rows="3" placeholder="z. B. über mein Leben, meine Tochter, Dank an meine Eltern"></textarea>
-    </div>
+    <form action="/generate" method="post" enctype="multipart/form-data" class="space-y-4 text-left">
+      <div>
+        <label class="block mb-1 font-semibold text-gray-700">Art des Vermächtnisses</label>
+        <input type="text" name="type" class="w-full p-2 border border-gray-300 rounded" required>
+      </div>
 
-    <div class="mb-4">
-      <label for="name">Dein vollständiger Name</label><br>
-      <input type="text" id="name" name="name" required>
-    </div>
+      <div>
+        <label class="block mb-1 font-semibold text-gray-700">Nachricht automatisch durch KI generieren?</label>
+        <div class="flex gap-4 mt-1">
+          <label class="inline-flex items-center"><input type="radio" name="use_ai" value="ja" required> <span class="ml-2">Ja</span></label>
+          <label class="inline-flex items-center"><input type="radio" name="use_ai" value="nein"> <span class="ml-2">Nein</span></label>
+        </div>
+      </div>
 
-    <div class="mb-4">
-      <label for="nachricht">Deine Nachricht</label><br>
-      <textarea id="nachricht" name="nachricht" rows="6" placeholder="Was möchtest du mitteilen?" required></textarea>
-    </div>
+      <div>
+        <label class="block mb-1 font-semibold text-gray-700">Stichpunkte für die KI (optional)</label>
+        <textarea name="ai_input" rows="3" class="w-full p-2 border border-gray-300 rounded" placeholder="z. B. über mein Leben, meine Tochter, Dank an meine Eltern"></textarea>
+      </div>
 
-    <div class="mb-4">
-      <label for="datei">Datei anhängen (optional)</label><br>
-      <input type="file" id="datei" name="datei">
-    </div>
+      <div>
+        <label class="block mb-1 font-semibold text-gray-700">Dein vollständiger Name</label>
+        <input type="text" name="full_name" class="w-full p-2 border border-gray-300 rounded" required>
+      </div>
 
-    <button type="submit">Jetzt generieren</button>
-  </form>
-</section>
-{% endblock %}
+      <div>
+        <label class="block mb-1 font-semibold text-gray-700">Deine Nachricht</label>
+        <textarea name="message" rows="5" class="w-full p-2 border border-gray-300 rounded" placeholder="Was möchtest du mitteilen?"></textarea>
+      </div>
+
+      <div>
+        <label class="block mb-1 font-semibold text-gray-700">Datei anhängen (optional)</label>
+        <input type="file" name="file" class="block w-full text-gray-700">
+      </div>
+
+      <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2 px-6 rounded mt-4 w-full">
+        Jetzt generieren
+      </button>
+    </form>
+  </div>
+
+</body>
+</html>
