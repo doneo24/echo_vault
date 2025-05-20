@@ -149,6 +149,10 @@ def generate():
     if not is_access_granted():
         return "❌ Zugriff verweigert – bitte zuerst Zugang aktivieren", 403
 
+    from fpdf import FPDF
+    from werkzeug.utils import secure_filename
+    import tempfile, os
+
     name = request.form.get("name", "Unbekannt")
     typ = request.form.get("typ", "Echo Vault")
     nachricht = request.form.get("nachricht", "")
@@ -156,8 +160,8 @@ def generate():
     ki_generieren = request.form.get("ki_generieren", "nein")
     datei = request.files.get("datei")
 
-    # KI-Text erzeugen, wenn gewünscht
-    if ki_generieren == "ja" and stichpunkte.strip():
+    # 🧠 KI-Nachricht erzeugen (nur wenn gewünscht UND sinnvoll)
+    if ki_generieren == "ja" and stichpunkte and stichpunkte.strip():
         prompt = f"Schreibe eine emotionale, würdevolle Nachricht für ein digitales Vermächtnis. Stichpunkte: {stichpunkte}"
         try:
             response = client.chat.completions.create(
@@ -168,19 +172,30 @@ def generate():
         except Exception as e:
             return f"Fehler bei der KI-Generierung: {str(e)}", 500
 
-    # ❗️ Sonderzeichen fixen (nachdem der Text endgültig steht)
+    # 🧼 Text bereinigen für PDF (kein Crash durch Sonderzeichen)
     def clean_text(text):
-        return text.replace("–", "-").replace("“", '"').replace("”", '"').encode('latin-1', 'ignore').decode('latin-1')
+        if not text:
+            return ""
+        return (
+            text.replace("–", "-")
+                .replace("“", '"')
+                .replace("”", '"')
+                .replace("’", "'")
+                .replace("•", "*")
+                .encode('latin-1', 'ignore')
+                .decode('latin-1')
+        )
 
     nachricht = clean_text(nachricht)
+    print("🧼 Cleaned message:", nachricht)  # Debug-Ausgabe
 
-    # PDF erzeugen
+    # 📄 PDF erzeugen
     pdf = FPDF()
     pdf.add_page()
     pdf.set_font("Arial", size=12)
     pdf.multi_cell(0, 10, f"Echo Vault – {typ}\n\nName: {name}\n\nNachricht:\n{nachricht}")
 
-    import tempfile, os
+    # 📁 Dateien speichern
     temp_dir = tempfile.mkdtemp()
     pdf_path = os.path.join(temp_dir, "EchoVault_Generiert.pdf")
     pdf.output(pdf_path)
@@ -188,7 +203,9 @@ def generate():
     if datei and datei.filename:
         datei.save(os.path.join(temp_dir, secure_filename(datei.filename)))
 
+    # 📦 PDF senden
     return send_file(pdf_path, as_attachment=True, download_name="EchoVault_Generiert.pdf")
+
 
 
 
