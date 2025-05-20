@@ -1,173 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Doneo Echo Vault – Startseite{% endblock %}
+{% block content %}
 
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Doneo Echo Vault</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f2f4f7;
-      color: #1a1a1a;
-    }
-    header {
-      background-color: #ffffff;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-    header h1 {
-      font-size: 1.5rem;
-      margin: 0;
-      color: #007a5e;
-    }
-    nav a {
-      margin-left: 2rem;
-      text-decoration: none;
-      color: #333;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-    nav a:hover {
-      color: #007a5e;
-    }
-    .hero {
-      text-align: center;
-      padding: 3rem 1rem 2rem;
-      background: #ffffff;
-    }
-    .hero h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-    .hero p {
-      font-size: 1.1rem;
-      max-width: 700px;
-      margin: 0 auto 2rem;
-    }
-    .hero a.button {
-      background-color: #007a5e;
-      color: #fff;
-      padding: 0.75rem 1.5rem;
-      text-decoration: none;
-      border-radius: 6px;
-      font-weight: bold;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      padding: 2rem;
-      max-width: 1100px;
-      margin: auto;
-    }
-    .card {
-      background-color: #ffffff;
-      padding: 1.5rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-      text-align: center;
-    }
-    .card h3 {
-      margin-top: 0;
-      color: #007a5e;
-    }
-    .card p {
-      font-size: 0.95rem;
-      color: #333;
-      margin: 1rem 0;
-    }
-    .card a {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.5rem 1.2rem;
-      background: #007a5e;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: 500;
-    }
-    footer {
-      text-align: center;
-      padding: 2rem 1rem;
-      background: #eef2f4;
-      font-size: 0.9rem;
-      color: #666;
-    }
-    @media (max-width: 600px) {
-      nav a {
-        margin-left: 1rem;
-        font-size: 0.95rem;
-      }
-      .hero h2 {
-        font-size: 1.6rem;
-      }
-    }
-  </style>
-</head>
-<body>
-
-<header>
-  <h1>Doneo Echo Vault</h1>
-  <nav>
-    <a href="/was-ist">Was ist Echo Vault?</a>
-    <a href="/beispiele">Beispiele</a>
-    <a href="/kontakt">Kontakt</a>
-  </nav>
-</header>
-
-<section class="hero">
-  <h2>Dein digitales Vermächtnis beginnt jetzt</h2>
-  <p>Erstelle persönliche Botschaften für die Zukunft – verschlüsselt, emotional, unvergesslich. Stimme, Worte, Zeitkapsel in einer Datei.</p>
-  <a class="button" href="/formular">Jetzt starten</a>
+<section class="text-center mt-12">
+  <h2 class="text-4xl font-bold mb-4">Dein digitales Vermächtnis beginnt jetzt</h2>
+  <p class="text-lg text-gray-700 mb-6 max-w-2xl mx-auto">
+    Erstelle persönliche Botschaften für die Zukunft – verschlüsselt, emotional, unvergesslich. Stimme, Worte, Zeitkapsel in einer Datei.
+  </p>
+  <a class="bg-green-600 text-white px-6 py-3 rounded-2xl shadow hover:bg-green-700 transition" href="/formular">
+    Jetzt starten
+  </a>
 </section>
 
-<section class="grid">
-  <div class="card">
-    <h3>Zukunftsbrief</h3>
-    <p>Nachricht an dein zukünftiges Ich – Motivation, Rat, Erinnerung.</p>
-    <a href="/formular?typ=Zukunftsbrief">Auswählen</a>
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-16 px-4 max-w-6xl mx-auto">
+  <div class="card bg-white p-6 rounded-xl shadow text-center">
+    <h3 class="text-xl font-semibold text-green-700 mb-2">Zukunftsbrief</h3>
+    <p class="mb-4">Nachricht an dein zukünftiges Ich – Motivation, Rat, Erinnerung.</p>
+    <a href="/formular?typ=Zukunftsbrief" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Auswählen</a>
   </div>
-  <div class="card">
-    <h3>Letzte Worte</h3>
-    <p>Ein Abschied, eine Stimme, eine bleibende Botschaft – für später.</p>
-    <a href="/formular?typ=Letzte Worte">Auswählen</a>
+  <div class="card bg-white p-6 rounded-xl shadow text-center">
+    <h3 class="text-xl font-semibold text-green-700 mb-2">Letzte Worte</h3>
+    <p class="mb-4">Ein Abschied, eine Stimme, eine bleibende Botschaft – für später.</p>
+    <a href="/formular?typ=Letzte Worte" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Auswählen</a>
   </div>
-  <div class="card">
-    <h3>Brief an dein Kind</h3>
-    <p>Wenn du nicht dabei sein kannst – zum 18., zur Einschulung, zur Hochzeit.</p>
-    <a href="/formular?typ=Brief an dein Kind">Auswählen</a>
+  <div class="card bg-white p-6 rounded-xl shadow text-center">
+    <h3 class="text-xl font-semibold text-green-700 mb-2">Brief an dein Kind</h3>
+    <p class="mb-4">Wenn du nicht dabei sein kannst – zum 18., zur Einschulung, zur Hochzeit.</p>
+    <a href="/formular?typ=Brief an dein Kind" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Auswählen</a>
   </div>
-  <div class="card">
-    <h3>Dank & Vergebung</h3>
-    <p>Was nie gesagt wurde: an Eltern, Lehrer, Freunde oder dich selbst.</p>
-    <a href="/formular?typ=Dank & Vergebung">Auswählen</a>
+  <div class="card bg-white p-6 rounded-xl shadow text-center">
+    <h3 class="text-xl font-semibold text-green-700 mb-2">Dank & Vergebung</h3>
+    <p class="mb-4">Was nie gesagt wurde: an Eltern, Lehrer, Freunde oder dich selbst.</p>
+    <a href="/formular?typ=Dank & Vergebung" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Auswählen</a>
   </div>
-  <div class="card">
-    <h3>Echo Zeitkapsel</h3>
-    <p>Fotos, Audio, Briefe – verschlüsselt, gesammelt, übergeben.</p>
-    <a href="/formular?typ=Zeitkapsel">Auswählen</a>
+  <div class="card bg-white p-6 rounded-xl shadow text-center">
+    <h3 class="text-xl font-semibold text-green-700 mb-2">Echo Zeitkapsel</h3>
+    <p class="mb-4">Fotos, Audio, Briefe – verschlüsselt, gesammelt, übergeben.</p>
+    <a href="/formular?typ=Zeitkapsel" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Auswählen</a>
   </div>
-  <div class="card">
-    <h3>Mentoring & Vermächtnis</h3>
-    <p>Werte, Lektionen, Geschichte – für die nächste Generation.</p>
-    <a href="/formular?typ=Mentoring">Auswählen</a>
+  <div class="card bg-white p-6 rounded-xl shadow text-center">
+    <h3 class="text-xl font-semibold text-green-700 mb-2">Mentoring & Vermächtnis</h3>
+    <p class="mb-4">Werte, Lektionen, Geschichte – für die nächste Generation.</p>
+    <a href="/formular?typ=Mentoring" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Auswählen</a>
   </div>
 </section>
 
-<footer>
-  <p>&copy; 2025 Doneo Echo Vault – Alle Rechte vorbehalten | <a href="/datenschutz">Datenschutz</a> | <a href="/impressum">Impressum</a></p>
-</footer>
-
-</body>
-</html>
+{% endblock %}
