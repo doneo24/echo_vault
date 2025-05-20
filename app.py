@@ -31,6 +31,10 @@ def formular():
     typ = request.args.get("typ", "")
     return render_template("echo_vault_final_template.html", typ=typ)
 
+@app.route("/kontakt")
+def kontakt():
+    return render_template("kontakt.html")
+
 @app.route("/datenschutz")
 def datenschutz():
     return render_template("datenschutz.html")
