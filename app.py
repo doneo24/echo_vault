@@ -18,6 +18,14 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 def index():
     return render_template("index.html")
 
+@app.route("/was-ist-echo-vault")
+def was_ist_echo_vault():
+    return render_template("was_ist_echo_vault.html")
+
+@app.route("/beispiele")
+def beispiele():
+    return render_template("beispiele.html")
+
 @app.route("/formular")
 def formular():
     typ = request.args.get("typ", "")
