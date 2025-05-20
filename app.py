@@ -169,6 +169,8 @@ def generate():
                 messages=[{"role": "user", "content": prompt}]
             )
             nachricht = response.choices[0].message.content.strip()
+            print("🧠 KI-Rohtext:", repr(nachricht))
+
         except Exception as e:
             nachricht = f"[Fehler bei KI: {str(e)}]"
 
