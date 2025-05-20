@@ -204,10 +204,6 @@ def generate():
 
     return send_file(pdf_path, as_attachment=True, download_name="EchoVault_Generiert.pdf")
 
-
-
-
-
 # Server starten
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
