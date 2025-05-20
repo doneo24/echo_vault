@@ -1,178 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Echo Vault – Formular{% endblock %}
+{% block content %}
 
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Echo Vault – Deine persönliche Botschaft</title>
-  <style>
-    body {
-      background-color: #f1f8fc;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #222;
-      margin: 0;
-      padding: 0;
-    }
+<section class="mt-12">
+  <h2 class="text-3xl font-bold mb-6 text-center" style="font-family: 'Source Serif Pro', serif;">Dein digitales Vermächtnis</h2>
+  <p class="text-center mb-6">
+    <a href="/" class="text-teal-600 hover:underline">Zurück zur Startseite</a>
+  </p>
 
-    header {
-      background-color: #0a2c3d;
-      color: white;
-      padding: 1.5rem;
-      text-align: center;
-    }
+  <form action="/generate" method="POST" enctype="multipart/form-data"
+    class="bg-white p-8 rounded-xl shadow max-w-xl mx-auto text-left">
 
-    header h1 {
-      margin: 0;
-      font-size: 2rem;
-    }
+    <!-- Art des Vermächtnisses -->
+    <label for="typ" class="block font-semibold mb-1">Art des Vermächtnisses</label>
+    <input type="text" id="typ" name="typ" value="{{ typ }}" required
+      class="w-full max-w-md mb-4 p-2 border border-gray-300 rounded-md">
 
-    main {
-      max-width: 600px;
-      margin: 2rem auto;
-      padding: 2rem;
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
-    }
+    <!-- KI generieren Auswahl -->
+    <label class="block font-semibold mb-2">Nachricht automatisch durch KI generieren?</label>
+    <div class="flex gap-6 mb-4">
+      <label><input type="radio" name="ki_generieren" value="ja" required> Ja</label>
+      <label><input type="radio" name="ki_generieren" value="nein" required> Nein</label>
+    </div>
 
-    h2 {
-      text-align: center;
-      font-size: 1.5rem;
-      color: #0a2c3d;
-    }
+    <!-- Stichpunkte -->
+    <label for="stichpunkte" class="block font-semibold mb-1">Stichpunkte für die KI (optional)</label>
+    <textarea id="stichpunkte" name="stichpunkte" rows="3"
+      class="w-full max-w-md mb-4 p-2 border border-gray-300 rounded-md"></textarea>
 
-    form {
-      display: flex;
-      flex-direction: column;
-    }
+    <!-- Name -->
+    <label for="name" class="block font-semibold mb-1">Dein vollständiger Name</label>
+    <input type="text" id="name" name="name" required
+      class="w-full max-w-md mb-4 p-2 border border-gray-300 rounded-md">
 
-    label {
-      margin: 0.8rem 0 0.2rem;
-      font-weight: bold;
-    }
+    <!-- Nachricht -->
+    <label for="nachricht" class="block font-semibold mb-1">Deine Nachricht</label>
+    <textarea id="nachricht" name="nachricht" rows="6" required
+      class="w-full max-w-md mb-4 p-2 border border-gray-300 rounded-md"></textarea>
 
-    input[type="text"],
-    input[type="date"],
-    textarea,
-    select {
-      padding: 0.7rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
+    <!-- Datei -->
+    <label for="datei" class="block font-semibold mb-1">Datei anhängen (optional)</label>
+    <input type="file" id="datei" name="datei"
+      class="w-full max-w-md mb-6 text-sm text-gray-600">
 
-    textarea {
-      height: 120px;
-    }
+    <!-- Button -->
+    <div class="text-center">
+      <button type="submit"
+        class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-6 rounded-lg shadow">
+        Jetzt generieren
+      </button>
+    </div>
 
-    input[type="file"] {
-      margin-top: 0.5rem;
-    }
+  </form>
+</section>
 
-    button {
-      margin-top: 1.5rem;
-      background-color: #0fa958;
-      color: white;
-      font-weight: bold;
-      padding: 0.8rem;
-      border: none;
-      border-radius: 6px;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #0d8d4c;
-    }
-
-    footer {
-      text-align: center;
-      margin: 3rem 0 1rem;
-      font-size: 0.9rem;
-      color: #555;
-    }
-  </style>
-
-<style>
-  body {
-    background-color: #E7F3F9;
-    font-family: 'Segoe UI', sans-serif;
-    color: #444444;
-  }
-  h1, h2, h3 {
-    font-family: 'Playfair Display', serif;
-    color: #4182A4;
-  }
-  input[type="text"], textarea, select {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    margin-top: 0.25rem;
-    margin-bottom: 1rem;
-    font-family: 'Segoe UI', sans-serif;
-  }
-  button {
-    background-color: #00C37A;
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 6px;
-    font-size: 1rem;
-    cursor: pointer;
-    font-family: 'Segoe UI', sans-serif;
-  }
-  button:hover {
-    background-color: #00b06a;
-  }
-  .form-wrapper {
-    max-width: 600px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
-  }
-</style>
-</head>
-
-<body>
-
-  <header>
-    <h1>Doneo Echo Vault</h1>
-  </header>
-
-  <main>
-    <h2>Du verfasst: Deine persönliche Botschaft</h2>
-    <form method="POST" enctype="multipart/form-data" action="/generate_vault">
-      <label for="name">Vollständiger Name</label>
-      <input type="text" id="name" name="name" required>
-
-      <label for="message">Nachricht oder Inhalt</label>
-      <textarea id="message" name="message" required></textarea>
-
-      <label for="unlock_date">Öffne erst am (optional)</label>
-      <input type="date" id="unlock_date" name="unlock_date">
-
-      <label for="personality">Persönlichkeitsbeschreibung (optional)</label>
-      <textarea id="personality" name="personality" placeholder="z. B. ruhig, liebevoll, zielstrebig"></textarea>
-
-      <label for="voice">Wähle KI-Stimme</label>
-      <select id="voice" name="voice">
-        <option value="standard">Standard (kostenfrei)</option>
-        <option value="premium">Premium Stimme</option>
-      </select>
-
-      <label for="file">Dateien hochladen (optional)</label>
-      <input type="file" id="file" name="file">
-
-      <button type="submit">Jetzt generieren</button>
-    </form>
-  </main>
-
-  <footer>
-    &copy; 2025 Doneo Echo Vault – Alle Rechte vorbehalten
-  </footer>
-
-</body>
-</html>
+{% endblock %}
