@@ -187,6 +187,7 @@ def generate():
         )
 
     nachricht = clean_text(nachricht)
+    typ = clean_text(typ)
 
     # PDF erstellen
     pdf = FPDF()
