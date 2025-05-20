@@ -1,122 +1,94 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <title>Echo Vault – Dein digitales Vermächtnis</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Segoe+UI&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Doneo Echo Vault</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Nunito:wght@400;600&display=swap" rel="stylesheet" />
+
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom, #e9f4ff, #ffffff);
-      color: #333;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-    }
-    .container {
-      background-color: #ffffff;
-      padding: 40px 30px;
-      border-radius: 16px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-      max-width: 600px;
-      width: 90%;
+    * {
       box-sizing: border-box;
     }
-    h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 28px;
-      text-align: center;
-      margin-bottom: 10px;
+    body {
+      margin: 0;
+      font-family: 'Nunito', 'Segoe UI', sans-serif;
+      background-color: #f4f4f8;
       color: #1a1a1a;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
-    p.subtitle {
-      font-style: italic;
+    header {
+      background-color: #ffffff;
       text-align: center;
+      padding: 2rem 1rem 1rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    header h1 {
+      font-size: 2.2rem;
+      color: #007a5e;
+      margin: 0;
+      font-family: 'Playfair Display', serif;
+    }
+    nav {
+      margin-top: 1rem;
+    }
+    nav a {
+      margin: 0 1.5rem;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      font-size: 1rem;
+    }
+    nav a:hover {
+      color: #007a5e;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: #eef2f4;
+      font-size: 0.9rem;
       color: #666;
-      margin-bottom: 30px;
     }
-    label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: 600;
+    footer a {
+      color: #007a5e;
+      text-decoration: none;
     }
-    input[type="text"],
-    textarea,
-    input[type="file"],
-    select {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 15px;
-      background: #fafafa;
-    }
-    .radio-group {
-      display: flex;
-      gap: 25px;
-      margin-bottom: 20px;
-    }
-    .radio-group label {
-      font-weight: normal;
-    }
-    button {
-      width: 100%;
-      padding: 14px;
-      background-color: #28a67d;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    button:hover {
-      background-color: #208963;
-    }
-    @media (max-width: 480px) {
-      .container {
-        padding: 30px 20px;
-      }
+    footer a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <h1>Dein digitales Vermächtnis</h1>
-    <p class="subtitle">Was bleibt, wenn wir gehen? Deine Worte.</p>
+  <!-- HEADER -->
+  <header>
+    <h1>Doneo Echo Vault</h1>
+    <nav>
+      <a href="/">Startseite</a>
+      <a href="/was-ist">Was ist Echo Vault?</a>
+      <a href="/beispiele">Beispiele</a>
+      <a href="/kontakt">Kontakt</a>
+    </nav>
+  </header>
 
-    <form action="/generate" method="post" enctype="multipart/form-data">
-      <label for="type">Art des Vermächtnisses</label>
-      <input type="text" id="type" name="type" required>
+  <!-- CONTENT -->
+  <main class="px-4">
+    {% block content %}{% endblock %}
+  </main>
 
-      <label>Nachricht automatisch durch KI generieren?</label>
-      <div class="radio-group">
-        <label><input type="radio" name="use_ai" value="ja" required> Ja</label>
-        <label><input type="radio" name="use_ai" value="nein"> Nein</label>
-      </div>
-
-      <label for="ai_input">Stichpunkte für die KI (optional)</label>
-      <textarea id="ai_input" name="ai_input" rows="3" placeholder="z. B. Erinnerungen, Personen, Werte..."></textarea>
-
-      <label for="full_name">Dein vollständiger Name</label>
-      <input type="text" id="full_name" name="full_name" required>
-
-      <label for="message">Deine Nachricht</label>
-      <textarea id="message" name="message" rows="5" placeholder="Was möchtest du mitteilen?"></textarea>
-
-      <label for="file">Datei anhängen (optional)</label>
-      <input type="file" id="file" name="file">
-
-      <button type="submit">Jetzt generieren</button>
-    </form>
-  </div>
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 Doneo Echo Vault – Alle Rechte vorbehalten |
+      <a href="/datenschutz">Datenschutz</a> |
+      <a href="/impressum">Impressum</a>
+    </p>
+  </footer>
 
 </body>
 </html>
