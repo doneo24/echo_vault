@@ -59,9 +59,7 @@ def unlock_free():
 
 @app.route("/unlock_debug")
 def unlock_debug():
-    session["free_unlocked"] = True
-    session["downloads_left"] = 99
-    return redirect("/formular?typ=Letzte%20Worte")
+
 
 @app.route("/checkout/<plan>")
 def checkout(plan):
