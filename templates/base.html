@@ -5,57 +5,76 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Doneo Echo Vault</title>
   <style>
+    :root {
+      --primary: #11C3D4D;
+      --accent: #519498;
+      --light-bg: #EFFE0D4;
+      --text: #1a1a1a;
+      --footer-bg: #C1DAD6;
+    }
+
     * {
       box-sizing: border-box;
     }
+
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f2f4f7;
-      color: #1a1a1a;
+      font-family: 'Nunito', sans-serif;
+      background-color: var(--light-bg);
+      color: var(--text);
     }
+
     header {
       background-color: #ffffff;
       text-align: center;
       padding: 2rem 1rem 1rem;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
     }
+
     header h1 {
-      font-size: 2.2rem;
-      color: #007a5e;
+      font-family: 'Source Serif Pro', serif;
+      font-size: 2.5rem;
       margin: 0;
-      font-family: 'Playfair Display', serif;
+      color: var(--primary);
     }
+
     nav {
       margin-top: 1rem;
     }
+
     nav a {
       margin: 0 1.5rem;
       text-decoration: none;
       color: #333;
-      font-weight: 500;
-      font-size: 1rem;
+      font-weight: 600;
+      font-size: 1.05rem;
+      transition: color 0.3s ease;
     }
+
     nav a:hover {
-      color: #007a5e;
+      color: var(--accent);
     }
+
     main {
       max-width: 1100px;
       margin: 3rem auto;
       padding: 0 1rem;
       text-align: center;
     }
+
     footer {
+      background-color: var(--footer-bg);
       text-align: center;
-      padding: 2.5rem 1rem;
-      background: #eef2f4;
+      padding: 2rem 1rem;
       font-size: 0.9rem;
-      color: #666;
+      color: #444;
     }
+
     footer a {
-      color: #007a5e;
+      color: var(--primary);
       text-decoration: none;
     }
+
     footer a:hover {
       text-decoration: underline;
     }
@@ -63,22 +82,23 @@
 </head>
 <body>
 
-<header>
-  <h1>Doneo Echo Vault</h1>
-  <nav>
-    <a href="/was-ist">Was ist Echo Vault?</a>
-    <a href="/beispiele">Beispiele</a>
-    <a href="/kontakt">Kontakt</a>
-  </nav>
-</header>
+  <header>
+    <h1>Doneo Echo Vault</h1>
+    <nav>
+      <a href="/was-ist">Was ist Echo Vault?</a>
+      <a href="/beispiele">Beispiele</a>
+      <a href="/kontakt">Kontakt</a>
+    </nav>
+  </header>
 
-<main>
-  {% block content %}{% endblock %}
-</main>
+  <main>
+    {% block content %}{% endblock %}
+  </main>
 
-<footer>
-  <p>&copy; 2025 Doneo Echo Vault – Alle Rechte vorbehalten | <a href="/datenschutz">Datenschutz</a> | <a href="/impressum">Impressum</a></p>
-</footer>
+  <footer>
+    <p>&copy; 2025 Doneo Echo Vault – Alle Rechte vorbehalten</p>
+    <p><a href="/datenschutz">Datenschutz</a> | <a href="/impressum">Impressum</a></p>
+  </footer>
 
 </body>
 </html>
