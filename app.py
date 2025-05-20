@@ -17,7 +17,12 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 @app.route("/")
 def index():
     return render_template("index.html")
-
+    
+@app.route("/formular")
+def formular():
+    typ = request.args.get("typ", "")
+    return render_template("echo_vault_final_template.html", typ=typ)
+    
 @app.route("/was-ist-echo-vault")
 def was_ist_echo_vault():
     return render_template("was_ist_echo_vault.html")
@@ -25,15 +30,6 @@ def was_ist_echo_vault():
 @app.route("/beispiele")
 def beispiele():
     return render_template("beispiele.html")
-
-@app.route("/formular")
-def formular():
-    typ = request.args.get("typ", "")
-    return render_template("echo_vault_final_template.html", typ=typ)
-
-@app.route("/kontakt")
-def kontakt():
-    return render_template("kontakt.html")
 
 @app.route("/datenschutz")
 def datenschutz():
@@ -46,6 +42,10 @@ def impressum():
 @app.route("/kontakt")
 def kontakt():
     return render_template("kontakt.html")
+
+@app.route("/nutzung")
+def nutzung():
+    return render_template("nutzung.html")
 
 # Plan-Auswahl
 @app.route("/select")
