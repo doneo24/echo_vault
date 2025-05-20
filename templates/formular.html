@@ -2,56 +2,35 @@
 {% block title %}Echo Vault – Formular{% endblock %}
 {% block content %}
 
-<section class="mt-12">
-  <h2 class="text-3xl font-bold mb-6 text-center" style="font-family: 'Source Serif Pro', serif;">Dein digitales Vermächtnis</h2>
-  <p class="text-center mb-6">
-    <a href="/" class="text-teal-600 hover:underline">Zurück zur Startseite</a>
-  </p>
+<div class="container" style="background-color:#fff;padding:40px 30px;border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,0.1);max-width:600px;width:90%;box-sizing:border-box;margin:auto;font-family:'Segoe UI',sans-serif;">
+  <h1 style="font-family:'Playfair Display',serif;font-size:28px;text-align:center;margin-bottom:10px;color:#1a1a1a;">Dein digitales Vermächtnis</h1>
+  <p style="font-style:italic;text-align:center;color:#666;margin-bottom:30px;">Was bleibt, wenn wir gehen? Deine Worte.</p>
 
-  <form action="/generate" method="POST" enctype="multipart/form-data"
-    class="bg-white p-8 rounded-xl shadow max-w-xl mx-auto text-left">
+  <form action="/generate" method="post" enctype="multipart/form-data">
+    <label for="type">Art des Vermächtnisses</label>
+    <input type="text" id="type" name="type" required>
 
-    <!-- Art des Vermächtnisses -->
-    <label for="typ" class="block font-semibold mb-1">Art des Vermächtnisses</label>
-    <input type="text" id="typ" name="typ" value="{{ typ }}" required
-      class="w-full max-w-md mb-4 p-2 border border-gray-300 rounded-md">
-
-    <!-- KI generieren Auswahl -->
-    <label class="block font-semibold mb-2">Nachricht automatisch durch KI generieren?</label>
-    <div class="flex gap-6 mb-4">
-      <label><input type="radio" name="ki_generieren" value="ja" required> Ja</label>
-      <label><input type="radio" name="ki_generieren" value="nein" required> Nein</label>
+    <label>Nachricht automatisch durch KI generieren?</label>
+    <div style="display:flex;gap:25px;margin-bottom:20px;">
+      <label><input type="radio" name="use_ai" value="ja" required> Ja</label>
+      <label><input type="radio" name="use_ai" value="nein"> Nein</label>
     </div>
 
-    <!-- Stichpunkte -->
-    <label for="stichpunkte" class="block font-semibold mb-1">Stichpunkte für die KI (optional)</label>
-    <textarea id="stichpunkte" name="stichpunkte" rows="3"
-      class="w-full max-w-md mb-4 p-2 border border-gray-300 rounded-md"></textarea>
+    <label for="ai_input">Stichpunkte für die KI (optional)</label>
+    <textarea id="ai_input" name="ai_input" rows="3" placeholder="z. B. Erinnerungen, Personen, Werte..." style="width:100%;padding:12px;margin-bottom:20px;border:1px solid #ccc;border-radius:8px;font-size:15px;background:#fafafa;"></textarea>
 
-    <!-- Name -->
-    <label for="name" class="block font-semibold mb-1">Dein vollständiger Name</label>
-    <input type="text" id="name" name="name" required
-      class="w-full max-w-md mb-4 p-2 border border-gray-300 rounded-md">
+    <label for="full_name">Dein vollständiger Name</label>
+    <input type="text" id="full_name" name="full_name" required>
 
-    <!-- Nachricht -->
-    <label for="nachricht" class="block font-semibold mb-1">Deine Nachricht</label>
-    <textarea id="nachricht" name="nachricht" rows="6" required
-      class="w-full max-w-md mb-4 p-2 border border-gray-300 rounded-md"></textarea>
+    <label for="message">Deine Nachricht</label>
+    <textarea id="message" name="message" rows="5" placeholder="Was möchtest du mitteilen?" style="width:100%;padding:12px;margin-bottom:20px;border:1px solid #ccc;border-radius:8px;font-size:15px;background:#fafafa;"></textarea>
 
-    <!-- Datei -->
-    <label for="datei" class="block font-semibold mb-1">Datei anhängen (optional)</label>
-    <input type="file" id="datei" name="datei"
-      class="w-full max-w-md mb-6 text-sm text-gray-600">
+    <label for="file">Datei anhängen (optional)</label>
+    <input type="file" id="file" name="file" style="width:100%;padding:12px;margin-bottom:20px;border:1px solid #ccc;border-radius:8px;font-size:15px;background:#fafafa;">
 
-    <!-- Button -->
-    <div class="text-center">
-      <button type="submit"
-        class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-6 rounded-lg shadow">
-        Jetzt generieren
-      </button>
-    </div>
-
+    <button type="submit" style="width:100%;padding:14px;background-color:#28a67d;color:white;border:none;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer;">Jetzt generieren</button>
   </form>
-</section>
+</div>
+
 
 {% endblock %}
