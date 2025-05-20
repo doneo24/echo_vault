@@ -6,11 +6,33 @@
   <h2 class="text-3xl font-bold mb-6 text-center">Dein digitales Vermächtnis</h2>
 
   <form action="/generate" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded-xl shadow space-y-6">
-    <!-- Typ -->
-    <div>
-      <label for="typ" class="block text-sm font-medium text-gray-700">Art des Vermächtnisses</label>
-      <input type="text" id="typ" name="typ" value="{{ typ }}" class="mt-1 w-full border border-gray-300 rounded-lg p-2" placeholder="z. B. Letzte Worte, Brief an dein Kind" required>
-    </div>
+
+<!-- Typ -->
+<div>
+  <label for="typ" class="block text-sm font-medium text-gray-700">Art des Vermächtnisses</label>
+  <input type="text" id="typ" name="typ" value="{{ typ }}" class="mt-1 w-full border border-gray-300 rounded-lg p-2" placeholder="z. B. Letzte Worte, Brief an dein Kind" required>
+</div>
+
+<!-- KI-Auswahl -->
+<div>
+  <label class="block text-sm font-medium text-gray-700 mt-6 mb-2">Nachricht automatisch durch KI generieren?</label>
+  <div class="flex items-center space-x-4">
+    <label class="inline-flex items-center">
+      <input type="radio" name="ki_generieren" value="ja" class="form-radio text-green-600" required>
+      <span class="ml-2">Ja</span>
+    </label>
+    <label class="inline-flex items-center">
+      <input type="radio" name="ki_generieren" value="nein" class="form-radio text-gray-400" required>
+      <span class="ml-2">Nein</span>
+    </label>
+  </div>
+</div>
+
+<!-- KI-Stichpunkte -->
+<div>
+  <label for="stichpunkte" class="block text-sm font-medium text-gray-700 mt-4">Stichpunkte für die KI (optional)</label>
+  <textarea id="stichpunkte" name="stichpunkte" rows="3" class="mt-1 w-full border border-gray-300 rounded-lg p-2" placeholder="z. B. über mein Leben, meine Tochter, Dank an meine Eltern"></textarea>
+</div>
 
     <!-- Name -->
     <div>
