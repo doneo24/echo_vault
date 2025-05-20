@@ -1,36 +1,178 @@
-{% extends "base.html" %}
-{% block title %}Echo Vault – Formular{% endblock %}
-{% block content %}
 
-<div class="container" style="background-color:#fff;padding:40px 30px;border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,0.1);max-width:600px;width:90%;box-sizing:border-box;margin:auto;font-family:'Segoe UI',sans-serif;">
-  <h1 style="font-family:'Playfair Display',serif;font-size:28px;text-align:center;margin-bottom:10px;color:#1a1a1a;">Dein digitales Vermächtnis</h1>
-  <p style="font-style:italic;text-align:center;color:#666;margin-bottom:30px;">Was bleibt, wenn wir gehen? Deine Worte.</p>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Echo Vault – Deine persönliche Botschaft</title>
+  <style>
+    body {
+      background-color: #f1f8fc;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #222;
+      margin: 0;
+      padding: 0;
+    }
 
-  <form action="/generate" method="post" enctype="multipart/form-data">
-    <label for="type">Art des Vermächtnisses</label>
-    <input type="text" id="type" name="type" required>
+    header {
+      background-color: #0a2c3d;
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+    }
 
-    <label>Nachricht automatisch durch KI generieren?</label>
-    <div style="display:flex;gap:25px;margin-bottom:20px;">
-      <label><input type="radio" name="use_ai" value="ja" required> Ja</label>
-      <label><input type="radio" name="use_ai" value="nein"> Nein</label>
-    </div>
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
 
-    <label for="ai_input">Stichpunkte für die KI (optional)</label>
-    <textarea id="ai_input" name="ai_input" rows="3" placeholder="z. B. Erinnerungen, Personen, Werte..." style="width:100%;padding:12px;margin-bottom:20px;border:1px solid #ccc;border-radius:8px;font-size:15px;background:#fafafa;"></textarea>
+    main {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
 
-    <label for="full_name">Dein vollständiger Name</label>
-    <input type="text" id="full_name" name="full_name" required>
+    h2 {
+      text-align: center;
+      font-size: 1.5rem;
+      color: #0a2c3d;
+    }
 
-    <label for="message">Deine Nachricht</label>
-    <textarea id="message" name="message" rows="5" placeholder="Was möchtest du mitteilen?" style="width:100%;padding:12px;margin-bottom:20px;border:1px solid #ccc;border-radius:8px;font-size:15px;background:#fafafa;"></textarea>
+    form {
+      display: flex;
+      flex-direction: column;
+    }
 
-    <label for="file">Datei anhängen (optional)</label>
-    <input type="file" id="file" name="file" style="width:100%;padding:12px;margin-bottom:20px;border:1px solid #ccc;border-radius:8px;font-size:15px;background:#fafafa;">
+    label {
+      margin: 0.8rem 0 0.2rem;
+      font-weight: bold;
+    }
 
-    <button type="submit" style="width:100%;padding:14px;background-color:#28a67d;color:white;border:none;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer;">Jetzt generieren</button>
-  </form>
-</div>
+    input[type="text"],
+    input[type="date"],
+    textarea,
+    select {
+      padding: 0.7rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
 
+    textarea {
+      height: 120px;
+    }
 
-{% endblock %}
+    input[type="file"] {
+      margin-top: 0.5rem;
+    }
+
+    button {
+      margin-top: 1.5rem;
+      background-color: #0fa958;
+      color: white;
+      font-weight: bold;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0d8d4c;
+    }
+
+    footer {
+      text-align: center;
+      margin: 3rem 0 1rem;
+      font-size: 0.9rem;
+      color: #555;
+    }
+  </style>
+
+<style>
+  body {
+    background-color: #E7F3F9;
+    font-family: 'Segoe UI', sans-serif;
+    color: #444444;
+  }
+  h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    color: #4182A4;
+  }
+  input[type="text"], textarea, select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-top: 0.25rem;
+    margin-bottom: 1rem;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  button {
+    background-color: #00C37A;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  button:hover {
+    background-color: #00b06a;
+  }
+  .form-wrapper {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+  }
+</style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Doneo Echo Vault</h1>
+  </header>
+
+  <main>
+    <h2>Du verfasst: Deine persönliche Botschaft</h2>
+    <form method="POST" enctype="multipart/form-data" action="/generate_vault">
+      <label for="name">Vollständiger Name</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="message">Nachricht oder Inhalt</label>
+      <textarea id="message" name="message" required></textarea>
+
+      <label for="unlock_date">Öffne erst am (optional)</label>
+      <input type="date" id="unlock_date" name="unlock_date">
+
+      <label for="personality">Persönlichkeitsbeschreibung (optional)</label>
+      <textarea id="personality" name="personality" placeholder="z. B. ruhig, liebevoll, zielstrebig"></textarea>
+
+      <label for="voice">Wähle KI-Stimme</label>
+      <select id="voice" name="voice">
+        <option value="standard">Standard (kostenfrei)</option>
+        <option value="premium">Premium Stimme</option>
+      </select>
+
+      <label for="file">Dateien hochladen (optional)</label>
+      <input type="file" id="file" name="file">
+
+      <button type="submit">Jetzt generieren</button>
+    </form>
+  </main>
+
+  <footer>
+    &copy; 2025 Doneo Echo Vault – Alle Rechte vorbehalten
+  </footer>
+
+</body>
+</html>
