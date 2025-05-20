@@ -7,7 +7,13 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Segoe+UI&display=swap" rel="stylesheet">
   <style>
-    body {
+    body 
+    <header style="text-align: center; padding: 1.5rem 0;">
+  <h1 style="font-family: 'Playfair Display', serif; font-size: 2rem; color: #007a5e; margin: 0;">
+    Doneo Echo Vault
+  </h1>
+</header>
+{
       font-family: 'Segoe UI', sans-serif;
     }
   </style>
@@ -44,6 +50,12 @@
    <img src="{{ url_for('static', filename='doneo_siegel_transparent.png') }}" alt="Siegel" style="height: 100px; opacity: 0.6;">
     <p style="font-size: 0.8rem; color: #777;">Verifiziert durch das Doneo Echo Vault Original-Siegel</p>
   </div>
+</footer>
+<footer style="background: #eef2f4; text-align: center; padding: 2.5rem 1rem; margin-top: 4rem;">
+  <img src="{{ url_for('static', filename='doneo_siegel_transparent.png') }}"
+       alt="Doneo Siegel"
+       style="height: 100px; opacity: 0.6; margin-bottom: 1rem;">
+  <p style="font-size: 0.8rem; color: #777;">Verifiziert durch das Doneo Echo Vault Original-Siegel</p>
 </footer>
 
 </body>
