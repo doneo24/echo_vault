@@ -1,35 +1,26 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8" />
-  <title>Impressum – Doneo Echo Vault</title>
-  <style>
-    body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; padding: 2rem; line-height: 1.6; color: #222; }
-    h1, h2 { color: #0077aa; }
-  </style>
-</head>
-<body>
-  <h1>Impressum</h1>
-  <p>Angaben gemäß § 5 TMG:</p>
-  <p>
-    Christian Achim Carl<br>
-    Sandberg 27<br>
-    26123 Oldenburg<br>
-    Deutschland
-  </p>
+{% extends "base.html" %}
+{% block title %}Impressum{% endblock %}
+{% block content %}
+<h1 class="text-3xl font-bold mb-4">Impressum</h1>
 
-  <h2>Kontakt</h2>
-  <p>
-    Telefon: auf Anfrage<br>
-    E-Mail: info@doneo24.com
-  </p>
+<p>Angaben gemäß § 5 TMG:</p>
 
-  <h2>Umsatzsteuer-ID</h2>
-  <p>USt-IdNr. gemäß §27 a Umsatzsteuergesetz: <em>Beantragt / entfällt bei Kleinunternehmerregelung</em></p>
+<p class="mt-2">
+Christian Achim Carl<br>
+Sandberg 27<br>
+26123 Oldenburg<br>
+Deutschland
+</p>
 
-  <h2>Haftungsausschluss</h2>
-  <p>Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt verlinkter Seiten sind ausschließlich deren Betreiber verantwortlich.</p>
+<p class="mt-4">
+Kontakt: <br>
+E-Mail: <a href="mailto:support@doneo24.de" class="text-blue-600 underline">support@doneo24.de</a>
+</p>
 
-  <p>Stand: Mai 2025</p>
-</body>
-</html>
+<p class="mt-4">
+Umsatzsteuer-Identifikationsnummer gemäß § 27 a UStG: **nicht umsatzsteuerpflichtig**
+</p>
+
+<p class="mt-6 text-sm text-gray-600">Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV: Christian Achim Carl</p>
+<p class="text-sm text-gray-600">Letzte Aktualisierung: Mai 2025</p>
+{% endblock %}
