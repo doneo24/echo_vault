@@ -3,101 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Doneo Echo Vault</title>
+  <title>{% block title %}Doneo Echo Vault{% endblock %}</title>
+
+  <!-- ✅ Tailwind CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
   <style>
-    :root {
-      --primary: #11C3D4D;
-      --accent: #519498;
-      --light-bg: #EFFE0D4;
-      --text: #1a1a1a;
-      --footer-bg: #C1DAD6;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
     body {
-      margin: 0;
-      font-family: 'Nunito', sans-serif;
-      background-color: var(--light-bg);
-      color: var(--text);
+      font-family: 'Segoe UI', sans-serif;
     }
-
-    header {
-      background-color: #ffffff;
-      text-align: center;
-      padding: 2rem 1rem 1rem;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    }
-
     header h1 {
-      font-family: 'Source Serif Pro', serif;
-      font-size: 2.5rem;
-      margin: 0;
-      color: var(--primary);
-    }
-
-    nav {
-      margin-top: 1rem;
-    }
-
-    nav a {
-      margin: 0 1.5rem;
-      text-decoration: none;
-      color: #333;
-      font-weight: 600;
-      font-size: 1.05rem;
-      transition: color 0.3s ease;
-    }
-
-    nav a:hover {
-      color: var(--accent);
-    }
-
-    main {
-      max-width: 1100px;
-      margin: 3rem auto;
-      padding: 0 1rem;
-      text-align: center;
-    }
-
-    footer {
-      background-color: var(--footer-bg);
-      text-align: center;
-      padding: 2rem 1rem;
-      font-size: 0.9rem;
-      color: #444;
-    }
-
-    footer a {
-      color: var(--primary);
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
+      font-family: 'Playfair Display', serif;
     }
   </style>
 </head>
-<body>
+<body class="bg-gray-100 text-gray-900">
 
-  <header>
-    <h1>Doneo Echo Vault</h1>
-    <nav>
-      <a href="/was-ist">Was ist Echo Vault?</a>
-      <a href="/beispiele">Beispiele</a>
-      <a href="/kontakt">Kontakt</a>
+  <header class="bg-white shadow text-center py-6">
+    <h1 class="text-3xl font-bold text-teal-600">Doneo Echo Vault</h1>
+    <nav class="mt-4">
+      <a href="/was-ist" class="mx-4 text-gray-700 font-semibold hover:text-teal-600">Was ist Echo Vault?</a>
+      <a href="/beispiele" class="mx-4 text-gray-700 font-semibold hover:text-teal-600">Beispiele</a>
+      <a href="/kontakt" class="mx-4 text-gray-700 font-semibold hover:text-teal-600">Kontakt</a>
     </nav>
   </header>
 
-  <main>
+  <main class="max-w-6xl mx-auto px-4 py-10 text-center">
     {% block content %}{% endblock %}
   </main>
 
-  <footer>
-    <p>&copy; 2025 Doneo Echo Vault – Alle Rechte vorbehalten</p>
-    <p><a href="/datenschutz">Datenschutz</a> | <a href="/impressum">Impressum</a></p>
+  <footer class="bg-gray-200 text-center text-sm text-gray-700 py-6">
+    <p class="mb-2">&copy; 2025 Doneo Echo Vault – Alle Rechte vorbehalten</p>
+    <p>
+      <a href="/datenschutz" class="text-teal-600 hover:underline">Datenschutz</a> |
+      <a href="/impressum" class="text-teal-600 hover:underline">Impressum</a>
+    </p>
   </footer>
 
 </body>
