@@ -5,28 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{% block title %}Doneo Echo Vault{% endblock %}</title>
 
-  <!-- ✅ Tailwind CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
+      background-color: #f2f4f7;
+      color: #1a1a1a;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
     header h1 {
       font-family: 'Playfair Display', serif;
     }
   </style>
 </head>
-<body class="bg-gray-100 text-gray-900">
+<body>
 
-  <header class="bg-white shadow text-center py-6">
-    <h1 class="text-3xl font-bold text-teal-600">Doneo Echo Vault</h1>
-   <nav class="mt-4">
-  <a href="/was-ist-echo-vault" class="mx-4 text-gray-700 font-semibold hover:text-teal-600">Was ist Echo Vault?</a>
-  <a href="/beispiele" class="mx-4 text-gray-700 font-semibold hover:text-teal-600">Beispiele</a>
-  <a href="/kontakt" class="mx-4 text-gray-700 font-semibold hover:text-teal-600">Kontakt</a>
-</nav>
-
+  <header class="bg-white text-center py-6 shadow">
+    <h1 class="text-3xl font-bold text-teal-600">
+      <a href="/" class="hover:text-teal-800">Doneo Echo Vault</a>
+    </h1>
+    <nav class="mt-4">
+      <a href="/was-ist-echo-vault" class="mx-4 text-gray-700 font-semibold hover:text-teal-600">Was ist Echo Vault?</a>
+      <a href="/beispiele" class="mx-4 text-gray-700 font-semibold hover:text-teal-600">Beispiele</a>
+      <a href="/kontakt" class="mx-4 text-gray-700 font-semibold hover:text-teal-600">Kontakt</a>
+    </nav>
   </header>
 
   <main class="max-w-6xl mx-auto px-4 py-10 text-center">
