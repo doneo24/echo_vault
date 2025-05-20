@@ -160,19 +160,19 @@ def generate():
     ki_generieren = request.form.get("ki_generieren", "nein")
     datei = request.files.get("datei")
 
-    # 🧠 KI-Nachricht erzeugen (nur wenn gewünscht UND sinnvoll)
+    # KI-Text erzeugen, falls gewünscht
     if ki_generieren == "ja" and stichpunkte and stichpunkte.strip():
-        prompt = f"Schreibe eine emotionale, würdevolle Nachricht für ein digitales Vermächtnis. Stichpunkte: {stichpunkte}"
         try:
+            prompt = f"Schreibe eine emotionale Nachricht für ein digitales Vermächtnis. Stichpunkte: {stichpunkte}"
             response = client.chat.completions.create(
                 model="gpt-3.5-turbo",
                 messages=[{"role": "user", "content": prompt}]
             )
             nachricht = response.choices[0].message.content.strip()
         except Exception as e:
-            return f"Fehler bei der KI-Generierung: {str(e)}", 500
+            nachricht = f"[Fehler bei KI: {str(e)}]"
 
-    # 🧼 Text bereinigen für PDF (kein Crash durch Sonderzeichen)
+    # Sonderzeichen bereinigen (damit PDF nicht crasht)
     def clean_text(text):
         if not text:
             return ""
@@ -187,15 +187,13 @@ def generate():
         )
 
     nachricht = clean_text(nachricht)
-    print("🧼 Cleaned message:", nachricht)  # Debug-Ausgabe
 
-    # 📄 PDF erzeugen
+    # PDF erstellen
     pdf = FPDF()
     pdf.add_page()
     pdf.set_font("Arial", size=12)
     pdf.multi_cell(0, 10, f"Echo Vault – {typ}\n\nName: {name}\n\nNachricht:\n{nachricht}")
 
-    # 📁 Dateien speichern
     temp_dir = tempfile.mkdtemp()
     pdf_path = os.path.join(temp_dir, "EchoVault_Generiert.pdf")
     pdf.output(pdf_path)
@@ -203,8 +201,8 @@ def generate():
     if datei and datei.filename:
         datei.save(os.path.join(temp_dir, secure_filename(datei.filename)))
 
-    # 📦 PDF senden
     return send_file(pdf_path, as_attachment=True, download_name="EchoVault_Generiert.pdf")
+
 
 
 
