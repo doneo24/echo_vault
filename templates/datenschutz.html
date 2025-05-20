@@ -1,35 +1,28 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8" />
-  <title>Datenschutzerklärung – Doneo Echo Vault</title>
-  <style>
-    body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; padding: 2rem; line-height: 1.6; color: #222; }
-    h1, h2 { color: #0077aa; }
-  </style>
-</head>
-<body>
-  <h1>Datenschutzerklärung</h1>
-  <p>Der Schutz Ihrer Daten ist uns ein besonderes Anliegen. Wir verarbeiten Ihre Daten daher ausschließlich auf Grundlage der gesetzlichen Bestimmungen (DSGVO, TMG).</p>
+{% extends "base.html" %}
+{% block title %}Datenschutzerklärung{% endblock %}
+{% block content %}
+<h1 class="text-3xl font-bold mb-4">Datenschutzerklärung</h1>
 
-  <h2>1. Verantwortlicher</h2>
-  <p>Christian Achim Carl<br>Sandberg 27<br>26123 Oldenburg<br>E-Mail: info@doneo24.com</p>
+<p class="mb-4">Diese Datenschutzerklärung informiert Sie über die Art, den Umfang und Zweck der Verarbeitung personenbezogener Daten innerhalb unseres Onlineangebots "Echo Vault".</p>
 
-  <h2>2. Erhebung und Speicherung personenbezogener Daten</h2>
-  <p>Wir erheben personenbezogene Daten nur, wenn Sie uns diese im Rahmen der Nutzung von Echo Vault freiwillig mitteilen. Die eingegebenen Daten (Name, Nachricht, Datei-Uploads etc.) werden <strong>nicht dauerhaft gespeichert</strong>, sondern ausschließlich lokal zur sofortigen Erstellung Ihrer PDF genutzt. Danach werden sie vollständig gelöscht.</p>
+<h2 class="text-xl font-semibold mt-6 mb-2">1. Verantwortlicher</h2>
+<p>Christian Achim Carl<br>Sandberg 27<br>26123 Oldenburg<br>E-Mail: support@doneo24.de</p>
 
-  <h2>3. Keine Weitergabe Ihrer Daten</h2>
-  <p>Ihre Daten werden nicht an Dritte weitergegeben oder dauerhaft auf unseren Servern gespeichert.</p>
+<h2 class="text-xl font-semibold mt-6 mb-2">2. Erhobene Daten</h2>
+<ul class="list-disc pl-6 space-y-1">
+  <li>Eingegebene Textdaten (z. B. persönliche Nachrichten, Namen, Beschreibungen)</li>
+  <li>Datei-Uploads (z. B. PDFs, ZIP-Dateien) – nur temporär und nicht dauerhaft gespeichert</li>
+  <li>Technische Zugriffsdaten (IP-Adresse, Zeitpunkt, Browser)</li>
+</ul>
 
-  <h2>4. Sicherheit</h2>
-  <p>Unsere Website verwendet HTTPS-Verschlüsselung. Dateiübertragungen erfolgen sicher und werden nicht protokolliert.</p>
+<h2 class="text-xl font-semibold mt-6 mb-2">3. Zweck der Verarbeitung</h2>
+<p>Die Daten werden ausschließlich zur Erstellung digitaler Vermächtnisse (z. B. PDF-Briefe) verwendet. Es erfolgt keine Weitergabe an Dritte.</p>
 
-  <h2>5. Ihre Rechte</h2>
-  <p>Sie haben jederzeit das Recht auf Auskunft, Berichtigung, Löschung oder Einschränkung der Verarbeitung Ihrer Daten sowie ein Recht auf Widerspruch gegen die Verarbeitung und das Recht auf Datenübertragbarkeit.</p>
+<h2 class="text-xl font-semibold mt-6 mb-2">4. Speicherdauer</h2>
+<p>Eingegebene Daten werden nach der Generierung nicht gespeichert. Uploads werden nach Erstellung gelöscht.</p>
 
-  <h2>6. Kontakt bei Datenschutzfragen</h2>
-  <p>Bitte wenden Sie sich per E-Mail an: datenschutz@doneo24.com</p>
+<h2 class="text-xl font-semibold mt-6 mb-2">5. Rechte der Nutzer</h2>
+<p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung sowie Einschränkung der Verarbeitung Ihrer Daten. Wenden Sie sich dazu an: <a href="mailto:support@doneo24.de" class="text-blue-600 underline">support@doneo24.de</a></p>
 
-  <p>Stand: Mai 2025</p>
-</body>
-</html>
+<p class="text-sm text-gray-600 mt-8">Letzte Aktualisierung: Mai 2025</p>
+{% endblock %}
