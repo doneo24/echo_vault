@@ -18,4 +18,30 @@
       <label><input type="radio" name="ki_generieren" value="nein" required> Nein</label>
     </div>
 
-    <label for="stichpunkte
+    <label for="stichpunkte" class="block font-semibold mb-1">Stichpunkte für die KI (optional)</label>
+    <textarea id="stichpunkte" name="stichpunkte" rows="3"
+      class="w-full max-w-md mb-4 p-2 border border-gray-300 rounded-md"></textarea>
+
+    <label for="name" class="block font-semibold mb-1">Dein vollständiger Name</label>
+    <input type="text" id="name" name="name" required
+      class="w-full max-w-md mb-4 p-2 border border-gray-300 rounded-md">
+
+    <label for="nachricht" class="block font-semibold mb-1">Deine Nachricht</label>
+    <textarea id="nachricht" name="nachricht" rows="6" required
+      class="w-full max-w-md mb-4 p-2 border border-gray-300 rounded-md"></textarea>
+
+    <label for="datei" class="block font-semibold mb-1">Datei anhängen (optional)</label>
+    <input type="file" id="datei" name="datei"
+      class="w-full max-w-md mb-6 text-sm text-gray-600">
+
+    <div class="text-center">
+      <button type="submit"
+        class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-6 rounded-lg shadow">
+        Jetzt generieren
+      </button>
+    </div>
+
+  </form>
+</section>
+
+{% endblock %}
