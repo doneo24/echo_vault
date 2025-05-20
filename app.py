@@ -59,6 +59,8 @@ def unlock_free():
 
 @app.route("/unlock_debug")
 def unlock_debug():
+    pass  # Platzhalter, damit der Block nicht leer ist
+
 
 
 @app.route("/checkout/<plan>")
