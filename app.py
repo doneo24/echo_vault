@@ -196,7 +196,8 @@ def generate():
     pdf.add_page()
     pdf.set_font("Arial", size=12)
     pdf.multi_cell(0, 10, f"Echo Vault - {typ}\n\nName: {name}\n\nNachricht:\n{nachricht}")
-    pdf.image("static/doneo_siegel.png", x=60, y=180, w=90)
+    pdf.image("static/doneo_siegel_transparent.png", x=160, y=260, w=30)
+
 
 
     temp_dir = tempfile.mkdtemp()
