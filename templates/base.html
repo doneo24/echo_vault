@@ -2,71 +2,87 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Doneo Echo Vault – Dein Vermächtnis</title>
+  <title>Echo Vault – Dein digitales Vermächtnis</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Segoe+UI&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: #f4f6f9;
       font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #e9f4ff, #ffffff);
+      color: #333;
       display: flex;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
     }
     .container {
-      background: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-      max-width: 500px;
+      background-color: #ffffff;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
       width: 90%;
+      box-sizing: border-box;
     }
     h1 {
       font-family: 'Playfair Display', serif;
-      font-size: 24px;
+      font-size: 28px;
+      text-align: center;
       margin-bottom: 10px;
-      text-align: center;
+      color: #1a1a1a;
     }
-    p {
+    p.subtitle {
       font-style: italic;
-      color: #555;
       text-align: center;
-      margin-bottom: 25px;
+      color: #666;
+      margin-bottom: 30px;
     }
     label {
       display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
+      margin-bottom: 6px;
+      font-weight: 600;
     }
     input[type="text"],
     textarea,
-    input[type="file"] {
+    input[type="file"],
+    select {
       width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
+      padding: 12px;
+      margin-bottom: 20px;
       border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 14px;
+      border-radius: 8px;
+      font-size: 15px;
+      background: #fafafa;
     }
     .radio-group {
       display: flex;
-      gap: 20px;
-      margin-bottom: 15px;
+      gap: 25px;
+      margin-bottom: 20px;
+    }
+    .radio-group label {
+      font-weight: normal;
     }
     button {
-      background-color: #3ca88b;
+      width: 100%;
+      padding: 14px;
+      background-color: #28a67d;
       color: white;
       border: none;
-      padding: 12px;
-      width: 100%;
+      border-radius: 8px;
       font-size: 16px;
-      border-radius: 6px;
+      font-weight: bold;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
     button:hover {
-      background-color: #319176;
+      background-color: #208963;
+    }
+    @media (max-width: 480px) {
+      .container {
+        padding: 30px 20px;
+      }
     }
   </style>
 </head>
@@ -74,7 +90,7 @@
 
   <div class="container">
     <h1>Dein digitales Vermächtnis</h1>
-    <p>Hinterlasse eine letzte Botschaft, die bleibt.</p>
+    <p class="subtitle">Was bleibt, wenn wir gehen? Deine Worte.</p>
 
     <form action="/generate" method="post" enctype="multipart/form-data">
       <label for="type">Art des Vermächtnisses</label>
@@ -87,7 +103,7 @@
       </div>
 
       <label for="ai_input">Stichpunkte für die KI (optional)</label>
-      <textarea id="ai_input" name="ai_input" rows="3" placeholder="z. B. über mein Leben, meine Tochter, Dank an meine Eltern"></textarea>
+      <textarea id="ai_input" name="ai_input" rows="3" placeholder="z. B. Erinnerungen, Personen, Werte..."></textarea>
 
       <label for="full_name">Dein vollständiger Name</label>
       <input type="text" id="full_name" name="full_name" required>
