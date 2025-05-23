@@ -7,8 +7,8 @@ import stripe
 app = Flask(__name__)
 
 # Stripe-Konfiguration
-stripe.api_key = 'sk_live_your_secret_key_here'  # Ersetze durch deinen echten Secret Key
-endpoint_secret = 'whsec_your_webhook_secret_here'  # Ersetze durch deinen Webhook-Secret
+stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
+endpoint_secret = os.environ.get('STRIPE_WEBHOOK_SECRET')
 
 # Dateipfad zur Nutzer-Datenbank
 USERS_FILE = 'paid_users.json'
