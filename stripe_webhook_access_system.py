@@ -7,6 +7,7 @@ import stripe
 app = Flask(__name__)
 
 # Stripe-Konfiguration
+
 stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
 endpoint_secret = os.environ.get('STRIPE_WEBHOOK_SECRET')
 
