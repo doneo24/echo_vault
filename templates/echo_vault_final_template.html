@@ -2,174 +2,124 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Echo Vault – Dein digitales Vermächtnis</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Segoe+UI&display=swap" rel="stylesheet">
+  <title>Doneo24 – Digitales Vermächtnis</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Segoe+UI&display=swap" rel="stylesheet">
   <style>
-    <!-- === DONEO24 HEADER (Final Version) === -->
-<header style="
-  background: linear-gradient(to bottom, #03071e, #0f172a);
-  padding: 4rem 1rem 6rem 1rem;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-">
-  <!-- Textlogo -->
-  <h1 style="
-    font-family: 'Cinzel', serif;
-    font-size: 3.2rem;
-    color: #f8f9fa;
-    letter-spacing: 2.5px;
-    margin: 0;
-    z-index: 2;
-    text-shadow: 0 0 12px rgba(255,255,255,0.2);
-  ">
-    Doneo24
-  </h1>
-
-  <!-- Kosmisches Lichtzentrum (Subtile Idee „geboren aus Gedanken“) -->
-  <div style="
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, rgba(255,255,255,0.05), transparent 70%);
-    z-index: 0;
-    pointer-events: none;
-  "></div>
-
-  <!-- Sternenhimmel -->
-  <div style="
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: radial-gradient(white 1px, transparent 1px),
-                      radial-gradient(white 1px, transparent 1px);
-    background-size: 120px 120px;
-    background-position: 0 0, 60px 60px;
-    opacity: 0.04;
-    z-index: 0;
-    pointer-events: none;
-  "></div>
-
-  <!-- Skyline-Silhouette -->
-  <div style="
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 110px;
-    background: linear-gradient(to top, #0f172a 30%, transparent);
-    z-index: 1;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-  ">
-    <div style="
-      width: 90%;
-      height: 100%;
-      background-image: url('https://i.imgur.com/FXpM8Qj.png');
-      background-repeat: no-repeat;
-      background-position: bottom center;
-      background-size: contain;
-      opacity: 0.8;
-    "></div>
-  </div>
-</header>
-<!-- === END HEADER === -->
     body {
       margin: 0;
-      padding: 0;
+      background: linear-gradient(to bottom, #03071e, #0f172a);
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom, #e9f4ff, #ffffff);
-      color: #333;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
+      color: #f0f0f0;
     }
-    .container {
-      background-color: #ffffff;
-      padding: 40px 30px;
-      border-radius: 16px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-      max-width: 600px;
-      width: 90%;
-      box-sizing: border-box;
+
+    form {
+      background-color: rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(4px);
+      max-width: 720px;
+      margin: 4rem auto;
+      padding: 2.5rem;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
     }
-    h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 28px;
-      text-align: center;
-      margin-bottom: 10px;
-      color: #1a1a1a;
-    }
-    p.subtitle {
-      font-style: italic;
-      text-align: center;
-      color: #666;
-      margin-bottom: 30px;
-    }
+
     label {
       display: block;
-      margin-bottom: 6px;
-      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      font-size: 1rem;
+      color: #d1d5db;
     }
+
     input[type="text"],
     textarea,
-    input[type="file"],
     select {
       width: 100%;
-      padding: 12px;
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 15px;
-      background: #fafafa;
-    }
-    .radio-group {
-      display: flex;
-      gap: 25px;
-      margin-bottom: 20px;
-    }
-    .radio-group label {
-      font-weight: normal;
-    }
-    button {
-      width: 100%;
-      padding: 14px;
-      background-color: #28a67d;
-      color: white;
+      padding: 0.8rem;
+      margin-bottom: 1.5rem;
+      border-radius: 10px;
       border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: bold;
+      font-size: 1rem;
+      background-color: rgba(255, 255, 255, 0.05);
+      color: #ffffff;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    button {
+      background-color: #47a84d;
+      color: white;
+      font-size: 1.1rem;
+      padding: 0.9rem 2rem;
+      border: none;
+      border-radius: 12px;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      display: block;
+      margin: 0 auto;
     }
+
     button:hover {
-      background-color: #208963;
+      background-color: #3a9140;
     }
-    @media (max-width: 480px) {
-      .container {
-        padding: 30px 20px;
-      }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      padding: 2rem 1rem 3rem 1rem;
+      color: #8899aa;
+    }
+
+    footer a {
+      color: #a5c3ff;
+      text-decoration: none;
+      margin: 0 1rem;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
-   
 <body>
 
+<!-- HEADER -->
+<header style="background: linear-gradient(to bottom, #03071e, #0f172a); padding: 4rem 1rem 6rem 1rem; text-align: center; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+  <h1 style="font-family: 'Cinzel', serif; font-size: 3.2rem; color: #f8f9fa; letter-spacing: 2.5px; margin: 0; z-index: 2; text-shadow: 0 0 12px rgba(255,255,255,0.2);">Doneo24</h1>
+  <div style="position: absolute; top: 20%; left: 50%; transform: translateX(-50%); width: 200px; height: 200px; background: radial-gradient(circle, rgba(255,255,255,0.05), transparent 70%); z-index: 0;"></div>
+  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(white 1px, transparent 1px), radial-gradient(white 1px, transparent 1px); background-size: 120px 120px; background-position: 0 0, 60px 60px; opacity: 0.04; z-index: 0;"></div>
+  <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 110px; background: linear-gradient(to top, #0f172a 30%, transparent); z-index: 1; display: flex; justify-content: center; align-items: flex-end;">
+    <div style="width: 90%; height: 100%; background-image: url('https://i.imgur.com/FXpM8Qj.png'); background-repeat: no-repeat; background-position: bottom center; background-size: contain; opacity: 0.8;"></div>
+  </div>
+</header>
 
+<!-- FORMULARBEREICH -->
+<main>
+  <form>
+    <label for="name">Ihr vollständiger Name</label>
+    <input type="text" id="name" name="name" required>
 
+    <label for="message">Letzte Nachricht / Persönliches Vermächtnis</label>
+    <textarea id="message" name="message" required></textarea>
+
+    <label for="voice">Stimme wählen</label>
+    <select id="voice" name="voice">
+      <option value="openai">OpenAI Stimme</option>
+      <option value="elevenlabs">ElevenLabs Stimme</option>
+    </select>
+
+    <button type="submit">Jetzt generieren</button>
+  </form>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <a href="/datenschutz.html">Datenschutz</a>
+  <a href="/impressum.html">Impressum</a>
+  <a href="/nutzung.html">Nutzungshinweis</a>
+</footer>
 
 </body>
 </html>
