@@ -1,114 +1,59 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8">
-  <title>Doneo24 – Einstieg</title>
-  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      background-color: #0F172A;
-      color: #FFFFFF;
-      font-family: 'Segoe UI', sans-serif;
-    }
+{% extends "base.html" %}
+{% block title %}Doneo Echo Vault – Startseite{% endblock %}
+{% block content %}
 
-    header {
-      text-align: center;
-      padding: 4rem 1rem 2rem;
-    }
+<!-- === DONEO24 HEADER (für index.html) === -->
 
-    header h1 {
-      font-size: 2.8rem;
-      font-weight: 500;
-      margin: 0;
-      color: #FFFFFF;
-    }
 
-    section {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem 1rem 4rem;
-    }
 
-    .package {
-      background-color: #1E293B;
-      padding: 2rem;
-      border-radius: 12px;
-      width: 300px;
-      text-align: center;
-    }
 
-    .package h2 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
 
-    .package ul {
-      list-style: none;
-      padding: 0;
-      margin-bottom: 1.5rem;
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
+<section class="text-center mt-16 mb-12 px-4">
+  <h2 class="text-4xl font-bold leading-snug mb-4 text-gray-800" style="font-family: 'Playfair Display', serif;">
+    Dein digitales Vermächtnis beginnt hier.
+  </h2>
+  <p class="text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto mb-6" style="font-family: 'Segoe UI', sans-serif;">
+    Stimme. Worte. Erinnerung.  
+    Echo Vault bewahrt deine Botschaften für die Ewigkeit – verschlüsselt, persönlich, zeitgesteuert.  
+    Für die, die bleiben.
+  </p>
+  <a href="/formular" class="bg-teal-600 text-white px-6 py-3 rounded-2xl shadow hover:bg-teal-700 transition">
+    Jetzt starten
+  </a>
+</section>
 
-    .package a {
-      display: inline-block;
-      background-color: #0F766E;
-      color: #FFFFFF;
-      padding: 0.75rem 1.5rem;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-    }
 
-    .package a:hover {
-      background-color: #115e57;
-    }
-  </style>
-</head>
-<body>
-
-<header>
-  <h1>Doneo24</h1>
-</header>
-
-<section>
-  <div class="package">
-    <h2>Free</h2>
-    <ul>
-      <li>✅ 1 Textnachricht</li>
-      <li>❌ Kein KI-Avatar</li>
-      <li>❌ Keine Dateiübertragung</li>
-    </ul>
-    <p>0 €</p>
-    <a href="#">Jetzt starten</a>
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-16 px-4 max-w-6xl mx-auto">
+  <div class="card bg-white p-6 rounded-xl shadow text-center">
+    <h3 class="text-xl font-semibold text-green-700 mb-2">Zukunftsbrief</h3>
+    <p class="mb-4">Nachricht an dein zukünftiges Ich – Motivation, Rat, Erinnerung.</p>
+    <a href="/formular?typ=Zukunftsbrief" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Auswählen</a>
   </div>
-
-  <div class="package">
-    <h2>Plus</h2>
-    <ul>
-      <li>✅ Text + KI-Avatar</li>
-      <li>❌ Keine Dateiübertragung</li>
-    </ul>
-    <p>9,99 €</p>
-    <a href="#">Jetzt starten</a>
+  <div class="card bg-white p-6 rounded-xl shadow text-center">
+    <h3 class="text-xl font-semibold text-green-700 mb-2">Letzte Worte</h3>
+    <p class="mb-4">Ein Abschied, eine Stimme, eine bleibende Botschaft – für später.</p>
+    <a href="/formular?typ=Letzte Worte" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Auswählen</a>
   </div>
-
-  <div class="package">
-    <h2>Pro</h2>
-    <ul>
-      <li>✅ Text + KI-Avatar</li>
-      <li>✅ Dateiübertragung</li>
-      <li>✅ Sprachmitteilung</li>
-    </ul>
-    <p>49,90 €</p>
-    <a href="#">Jetzt starten</a>
+  <div class="card bg-white p-6 rounded-xl shadow text-center">
+    <h3 class="text-xl font-semibold text-green-700 mb-2">Brief an dein Kind</h3>
+    <p class="mb-4">Wenn du nicht dabei sein kannst – zum 18., zur Einschulung, zur Hochzeit.</p>
+    <a href="/formular?typ=Brief an dein Kind" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Auswählen</a>
+  </div>
+  <div class="card bg-white p-6 rounded-xl shadow text-center">
+    <h3 class="text-xl font-semibold text-green-700 mb-2">Dank & Vergebung</h3>
+    <p class="mb-4">Was nie gesagt wurde: an Eltern, Lehrer, Freunde oder dich selbst.</p>
+    <a href="/formular?typ=Dank & Vergebung" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Auswählen</a>
+  </div>
+  <div class="card bg-white p-6 rounded-xl shadow text-center">
+    <h3 class="text-xl font-semibold text-green-700 mb-2">Echo Zeitkapsel</h3>
+    <p class="mb-4">Fotos, Audio, Briefe – verschlüsselt, gesammelt, übergeben.</p>
+    <a href="/formular?typ=Zeitkapsel" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Auswählen</a>
+  </div>
+  <div class="card bg-white p-6 rounded-xl shadow text-center">
+    <h3 class="text-xl font-semibold text-green-700 mb-2">Mentoring & Vermächtnis</h3>
+    <p class="mb-4">Werte, Lektionen, Geschichte – für die nächste Generation.</p>
+    <a href="/formular?typ=Mentoring" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Auswählen</a>
   </div>
 </section>
 
-</body>
-</html>
+{% endblock %}
