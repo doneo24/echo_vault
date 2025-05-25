@@ -88,35 +88,86 @@
 </head>
 <body>
 
-  <div class="container">
-    <h1>Dein digitales Vermächtnis</h1>
-    <p class="subtitle">Was bleibt, wenn wir gehen? Deine Worte.</p>
+ <!-- === DONEO24 HEADER (Final Version) === -->
+<header style="
+  background: linear-gradient(to bottom, #03071e, #0f172a);
+  padding: 4rem 1rem 6rem 1rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+">
+  <!-- Textlogo -->
+  <h1 style="
+    font-family: 'Cinzel', serif;
+    font-size: 3.2rem;
+    color: #f8f9fa;
+    letter-spacing: 2.5px;
+    margin: 0;
+    z-index: 2;
+    text-shadow: 0 0 12px rgba(255,255,255,0.2);
+  ">
+    Doneo24
+  </h1>
 
-    <form action="/generate" method="post" enctype="multipart/form-data">
-      <label for="type">Art des Vermächtnisses</label>
-      <input type="text" id="type" name="type" required>
+  <!-- Kosmisches Lichtzentrum (Subtile Idee „geboren aus Gedanken“) -->
+  <div style="
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(255,255,255,0.05), transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+  "></div>
 
-      <label>Nachricht automatisch durch KI generieren?</label>
-      <div class="radio-group">
-        <label><input type="radio" name="use_ai" value="ja" required> Ja</label>
-        <label><input type="radio" name="use_ai" value="nein"> Nein</label>
-      </div>
+  <!-- Sternenhimmel -->
+  <div style="
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(white 1px, transparent 1px),
+                      radial-gradient(white 1px, transparent 1px);
+    background-size: 120px 120px;
+    background-position: 0 0, 60px 60px;
+    opacity: 0.04;
+    z-index: 0;
+    pointer-events: none;
+  "></div>
 
-      <label for="ai_input">Stichpunkte für die KI (optional)</label>
-      <textarea id="ai_input" name="ai_input" rows="3" placeholder="z. B. Erinnerungen, Personen, Werte..."></textarea>
-
-      <label for="full_name">Dein vollständiger Name</label>
-      <input type="text" id="full_name" name="full_name" required>
-
-      <label for="message">Deine Nachricht</label>
-      <textarea id="message" name="message" rows="5" placeholder="Was möchtest du mitteilen?"></textarea>
-
-      <label for="file">Datei anhängen (optional)</label>
-      <input type="file" id="file" name="file">
-
-      <button type="submit">Jetzt generieren</button>
-    </form>
+  <!-- Skyline-Silhouette -->
+  <div style="
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 110px;
+    background: linear-gradient(to top, #0f172a 30%, transparent);
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  ">
+    <div style="
+      width: 90%;
+      height: 100%;
+      background-image: url('https://i.imgur.com/FXpM8Qj.png');
+      background-repeat: no-repeat;
+      background-position: bottom center;
+      background-size: contain;
+      opacity: 0.8;
+    "></div>
   </div>
+</header>
+<!-- === END HEADER === -->
+
 
 </body>
 </html>
